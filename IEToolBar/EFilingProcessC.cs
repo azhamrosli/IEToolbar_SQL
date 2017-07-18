@@ -44800,7 +44800,7 @@ namespace IEToolBar
                                         inpElement.value = "";
                                     break;
                                 case "ctl00$ContentPlaceHolder1$txtQ3_KP":
-                                    if (dsData.Tables["P3_SYER"].Rows.Count > 1)
+                                    if (dsData.Tables["P3_SYER"].Rows.Count > 2)
                                         inpElement.value = dsData.Tables["P3_SYER"].Rows[2]["SH_IC"].ToString().Replace("-", "");
                                     else
                                         inpElement.value = "";
@@ -44840,7 +44840,7 @@ namespace IEToolBar
                                         inpElement.value = "";
                                     break;
                                 case "ctl00$ContentPlaceHolder1$txtQ4_Nama":
-                                    if (dsData.Tables["P3_SYER"].Rows.Count > 2)
+                                    if (dsData.Tables["P3_SYER"].Rows.Count > 3)
                                         inpElement.value = dsData.Tables["P3_SYER"].Rows[3]["SH_NAME"].ToString();
                                     else
                                         inpElement.value = "";
@@ -49564,7 +49564,7 @@ namespace IEToolBar
 
                         #region "Page 3"
                         case "C2017Page3":
-                           
+                          
                             switch (selElement.name)
                             {
                                 case "ctl00$ContentPlaceHolder1$ddlQ1_jpengenalan":
@@ -49663,16 +49663,19 @@ namespace IEToolBar
                                     break;
                                 //azham 27/06/2017 == tarikh lahir
                                 case "ctl00$ContentPlaceHolder1$ddlQ1TkhLahir_hari":
-                                   
+                                   //x
+                                  
                                     if (dsData.Tables["P3_SYER"].Rows.Count > 0)
                                     {
                                         
                                         // selElement.value = dsData.Tables["P3_SYER"].Rows[0].ItemArray[6].ToString();
                                         dtDateTmp = Convert.ToDateTime(dsData.Tables["P3_SYER"].Rows[0]["SH_DATE_OF_BIRTH"].ToString());
+                                  
                                         selElement.value = dtDateTmp.ToString("dd");
                                     }
                                     else
                                     {
+                                  
                                         selElement.value = "";
                                     }
                                     break;
@@ -50063,7 +50066,7 @@ namespace IEToolBar
             }
             catch (Exception ex)
             {
-                //System.Windows.Forms.MessageBox.Show("CCCC " + ex.ToString() + " = " + IDData + " (" + LogData + ")");
+               // System.Windows.Forms.MessageBox.Show("CCCC " + ex.ToString() + " = " + IDData + " (" + LogData + ")");
             }
         }
 

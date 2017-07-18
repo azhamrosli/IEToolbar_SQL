@@ -17,3 +17,22 @@ D:\Share Folder\TAXCOM CODE VBNET\IEToolbarE-Filing SQL\IEToolBar\obj\Release\IE
 D:\Share Folder\TAXCOM CODE VBNET\IEToolbarE-Filing SQL\IEToolBar\obj\Release\IEToolBar.csproj.GenerateResource.Cache
 D:\Share Folder\TAXCOM CODE VBNET\IEToolbarE-Filing SQL\IEToolBar\obj\Release\IEToolBar.dll
 D:\Share Folder\TAXCOM CODE VBNET\IEToolbarE-Filing SQL\IEToolBar\obj\Release\IEToolBar.pdb
+C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\bin\Release\IEToolBar.dll
+C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\bin\Release\IEToolBar.pdb
+C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\bin\Release\BandObjectsLib.dll
+C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\bin\Release\Microsoft.mshtml.dll
+C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\bin\Release\Interop.SHDocVw.dll
+C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\obj\Release\Interop.SHDocVw.dll
+C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\obj\Release\IEToolBar.csproj.ResolveComReference.cache
+C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\obj\Release\IEToolBar.frmEFileAdd.resources
+C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\obj\Release\IEToolBar.frmTaxAgentLogIn.resources
+C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\obj\Release\IEToolBar.frmEFileSelect.resources
+C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\obj\Release\IEToolBar.frmEFileURL.resources
+C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\obj\Release\IEToolBar.frmHK3.resources
+C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\obj\Release\IEToolBar.frmMaklumatAhliKongsi.resources
+C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\obj\Release\IEToolBar.frmRKTRKS.resources
+C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\obj\Release\IEToolBar.Properties.Resources.resources
+C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\obj\Release\IEToolBar.ucToolBar.resources
+C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\obj\Release\IEToolBar.csproj.GenerateResource.Cache
+C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\obj\Release\IEToolBar.dll
+C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\obj\Release\IEToolBar.pdb
