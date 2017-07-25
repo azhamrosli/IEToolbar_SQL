@@ -8723,6 +8723,7 @@ namespace IEToolBar
                                         inpElement.value = "";
                                     break;
                                 case "ctl00$ContentPlaceHolder1$txtQ3_KP":
+                                    MessageBox.Show(dsData.Tables["P3_SYER"].Rows.Count.ToString());
                                     if (dsData.Tables["P3_SYER"].Rows.Count > 2)
                                         inpElement.value = dsData.Tables["P3_SYER"].Rows[2].ItemArray[0].ToString().Replace("-", "");
                                     else
