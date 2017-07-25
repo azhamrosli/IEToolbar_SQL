@@ -43603,25 +43603,67 @@ namespace IEToolBar
                             switch (selElement.name)
                             {
                                 case "ctl00$ContentPlaceHolder1$ddlQ1_jpengenalan":
-                                    selElement.value = "1";
+                                    //dsData.Tables["P3_SYER"] //.Rows[0].ItemArray[1].ToString();
+
+                                    if (dsData.Tables["P3_SYER"].Rows.Count > 1)
+                                    {
+                                        selElement.value = "1";
+                                    }
+                                    else
+                                    {
+                                        selElement.value = "";
+                                    }
                                     FireSelElementEvent(selElement, "OnBlur");
                                     break;
+                                
                                 case "ctl00$ContentPlaceHolder1$ddlQ2_jpengenalan":
-                                    selElement.value = "1";
+
+                                    if (dsData.Tables["P3_SYER"].Rows.Count > 1)
+                                    {
+                                        selElement.value = "1";
+                                    }
+                                    else
+                                    {
+                                        selElement.value = "";
+                                    }
                                     FireSelElementEvent(selElement, "OnBlur");
                                     break;
                                 case "ctl00$ContentPlaceHolder1$ddlQ3_jpengenalan":
-                                    selElement.value = "1";
+                                     if (dsData.Tables["P3_SYER"].Rows.Count > 1)
+                                    {
+                                        selElement.value = "1";
+                                    }
+                                    else
+                                    {
+                                        selElement.value = "";
+                                    }
                                     FireSelElementEvent(selElement, "OnBlur");
                                     break;
+                                
                                 case "ctl00$ContentPlaceHolder1$ddlQ4_jpengenalan":
-                                    selElement.value = "1";
+                                    if (dsData.Tables["P3_SYER"].Rows.Count > 1)
+                                    {
+                                        selElement.value = "1";
+                                    }
+                                    else
+                                    {
+                                        selElement.value = "";
+                                    }
                                     FireSelElementEvent(selElement, "OnBlur");
                                     break;
+                                
                                 case "ctl00$ContentPlaceHolder1$ddlQ5_jpengenalan":
-                                    selElement.value = "1";
+                                    if (dsData.Tables["P3_SYER"].Rows.Count > 1)
+                                    {
+                                        selElement.value = "1";
+                                    }
+                                    else
+                                    {
+                                        selElement.value = "";
+                                    }
                                     FireSelElementEvent(selElement, "OnBlur");
                                     break;
+                                
                                 case "ctl00$ContentPlaceHolder1$ddlQ_Status":
 
                                     if (dsData.Tables["P3_CONTROL_COMPANY"].Rows.Count > 0)
