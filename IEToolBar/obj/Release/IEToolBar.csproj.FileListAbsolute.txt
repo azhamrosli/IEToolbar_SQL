@@ -36,3 +36,4 @@ C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\obj\Release\IEToolBar.uc
 C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\obj\Release\IEToolBar.csproj.GenerateResource.Cache
 C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\obj\Release\IEToolBar.dll
 C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\obj\Release\IEToolBar.pdb
+C:\Users\Azham\Documents\GitHub\IEToolbar_SQL\IEToolBar\obj\Release\IEToolBar.csprojResolveAssemblyReference.cache
