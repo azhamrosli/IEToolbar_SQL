@@ -41714,7 +41714,7 @@ namespace IEToolBar
                                         break;
 
                                     case "ctl00$ContentPlaceHolder1$txtJ3":
-                                        inpElement.value = dsData.Tables["P7_PRECEDING_YEAR"].Rows[0].ItemArray[0].ToString();
+                                        inpElement.value = dsData.Tables["P7_PRECEDING_YEAR"].Rows[0]["PY_PRE_YA"].ToString();
                                         FireInpElementEvent(inpElement, "OnBlur");
                                         break;
                                 }
@@ -41767,7 +41767,7 @@ namespace IEToolBar
                                     }
                                     else
                                     {
-                                        inpElement.value = "";
+                                        inpElement.value = "0";
                                         FireInpElementEvent(inpElement, "OnBlur");
                                     }
                                     break;
@@ -47685,7 +47685,7 @@ namespace IEToolBar
                                         break;
 
                                     case "ctl00$ContentPlaceHolder1$txtJ3":
-                                        inpElement.value = dsData.Tables["P7_PRECEDING_YEAR"].Rows[0].ItemArray[0].ToString();
+                                        inpElement.value = dsData.Tables["P7_PRECEDING_YEAR"].Rows[0]["PY_PRE_YA"].ToString();
                                         FireInpElementEvent(inpElement, "OnBlur");
                                         break;
                                 }
@@ -47726,7 +47726,7 @@ namespace IEToolBar
                                     else
                                     {
                                         //boolNoRecord = true;
-                                        inpElement.value = "";
+                                        inpElement.value = "0";
                                         FireInpElementEvent(inpElement, "OnBlur");
                                     }
                                     break;
@@ -47738,7 +47738,7 @@ namespace IEToolBar
                                     }
                                     else
                                     {
-                                        inpElement.value = "";
+                                        inpElement.value = "0";
                                         FireInpElementEvent(inpElement, "OnBlur");
                                     }
                                     break;
