@@ -43155,6 +43155,10 @@ namespace IEToolBar
                                     {
                                         selElement.value = "2";
                                     }
+                                    else if (dsData.Tables["P1_SELECT_TAX_PROFILE"].Rows[0]["TP_SECTION_127_3"].ToString() == "1")
+                                    {
+                                        selElement.value = "3";
+                                    }
                                     else
                                     {
                                         selElement.value = "0";

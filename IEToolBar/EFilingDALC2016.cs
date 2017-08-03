@@ -53,7 +53,7 @@ namespace IEToolBar
                         //    "right(convert(nvarchar(10), t.tp_opn_operation, 112), 2), substring(convert(nvarchar(10), t.tp_opn_operation, 112), 5,2), substring(convert(nvarchar(10), t.tp_opn_operation, 112), 1,4), tp_reg_country, tp_curr_country, tp_com_country, tp_alt_country from taxp_profile t, bank b where tp_ref_no=?";
                         strQuery = "select t.tp_residence, t.tp_country, t.tp_public_order, t.tp_co_status, t.tp_reg_state, t.tp_curr_state, t.tp_com_state, b.bk_code, t.tp_record_kept, t.tp_alt_state," +
                               "t.tp_acc_period_fr,t.tp_acc_period_to,t.tp_basis_period_fr,t.tp_basis_period_to,t.tp_opn_operation," +
-                              "t.tp_reg_country, t.tp_curr_country, t.tp_com_country, t.tp_alt_country, t.tp_com_sts, t.tp_carryetranding, t.tp_royalclaim, t.tp_section_127_1, t.tp_section_127_2, t.tp_buildingindustry from taxp_profile t, bank b where tp_ref_no=?";
+                              "t.tp_reg_country, t.tp_curr_country, t.tp_com_country, t.tp_alt_country, t.tp_com_sts, t.tp_carryetranding, t.tp_royalclaim, t.tp_section_127_1, t.tp_section_127_2, t.tp_section_127_3, t.tp_buildingindustry from taxp_profile t, bank b where tp_ref_no=?";
                         cmdOdbc = new OdbcCommand(strQuery, connOdbc);
                         cmdOdbc.Parameters.Add(new OdbcParameter("@taxpayer", strTaxPayer.ToString()));
                         daOdbc = new OdbcDataAdapter(cmdOdbc);
