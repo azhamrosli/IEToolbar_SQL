@@ -32600,6 +32600,7 @@ namespace IEToolBar
 
         private void ProcessFormC2015(mshtml.HTMLDocument htmlDoc, String strPageIndex)
         {
+             string test = "";
             try
             {
                 EFilingDALC2015 dalC2015 = new EFilingDALC2015(strTaxPayer, strYA, strAuditor, strTaxAgent);
@@ -32608,6 +32609,8 @@ namespace IEToolBar
                 int intcount = 0;
                 Boolean boolLocal = true;
                 string strComparator;
+
+               
                 Boolean boolNoRecord = false;
 
                 #region "INPUT"
@@ -36022,6 +36025,7 @@ namespace IEToolBar
 
                         #region "Page 9"
                         case "C2015Page9":
+                            test = inpElement.name;
                             switch (inpElement.name)
                             {
                                 case "ctl00$ContentPlaceHolder1$txtL1":
@@ -36061,32 +36065,101 @@ namespace IEToolBar
                                     FireInpElementEvent(inpElement, "OnBlur");
                                     break;
                                 case "ctl00$ContentPlaceHolder1$txtL8":
-                                    long lngL8 = 0;
-                                    long OthrIn = 0;
-                                    strComparator = dsData.Tables["P4_PLFST_SALES2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_PLFST_SALES2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
-                                    lngL8 = lngL8 + long.Parse(strComparator);
+                                    //long lngL8 = 0;
+                                    //long OthrIn = 0;
+                                    //strComparator = dsData.Tables["P4_PLFST_SALES2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_PLFST_SALES2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
+                                    //lngL8 = lngL8 + long.Parse(strComparator);
 
-                                    strComparator = dsData.Tables["P4_PLFST_OPENSTOCK2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_PLFST_OPENSTOCK2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
-                                    lngL8 = lngL8 - long.Parse(strComparator);
-                                    strComparator = dsData.Tables["P4_PLFST_PURCHASE2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_PLFST_PURCHASE2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
-                                    lngL8 = lngL8 - long.Parse(strComparator);
-                                    strComparator = dsData.Tables["P4_EXP_DEPRECIATE2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_EXP_DEPRECIATE2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
-                                    lngL8 = lngL8 - long.Parse(strComparator);
-                                    strComparator = dsData.Tables["P4_EXP_ALLOW2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_EXP_ALLOW2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
-                                    lngL8 = lngL8 - long.Parse(strComparator);
-                                    strComparator = dsData.Tables["P4_EXP_NONALLOW2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_EXP_NONALLOW2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
-                                    lngL8 = lngL8 - long.Parse(strComparator);
+                                    //strComparator = dsData.Tables["P4_PLFST_OPENSTOCK2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_PLFST_OPENSTOCK2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
+                                    //lngL8 = lngL8 - long.Parse(strComparator);
+                                    //strComparator = dsData.Tables["P4_PLFST_PURCHASE2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_PLFST_PURCHASE2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
+                                    //lngL8 = lngL8 - long.Parse(strComparator);
+                                    //strComparator = dsData.Tables["P4_EXP_DEPRECIATE2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_EXP_DEPRECIATE2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
+                                    //lngL8 = lngL8 - long.Parse(strComparator);
+                                    //strComparator = dsData.Tables["P4_EXP_ALLOW2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_EXP_ALLOW2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
+                                    //lngL8 = lngL8 - long.Parse(strComparator);
+                                    //strComparator = dsData.Tables["P4_EXP_NONALLOW2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_EXP_NONALLOW2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
+                                    //lngL8 = lngL8 - long.Parse(strComparator);
 
-                                    strComparator = dsData.Tables["P4_PLFST_CLOSESTOCK2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_PLFST_CLOSESTOCK2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
-                                    lngL8 = lngL8 + long.Parse(strComparator);
+                                    //strComparator = dsData.Tables["P4_PLFST_CLOSESTOCK2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_PLFST_CLOSESTOCK2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
+                                    //lngL8 = lngL8 + long.Parse(strComparator);
+
+                                    //if (lngL8 < 0)
+                                    //{
+                                    //    lngL8 = 0;
+
+                                    //}
+                                    //OthrIn = long.Parse(dsData.Tables["P4_PROFIT_LOSS"].Rows[0].ItemArray[0].ToString().Replace(",", "")); // other business income
+                                    //lngL8 = lngL8 + OthrIn;
+                                    //inpElement.value = lngL8.ToString();
+                                    //FireInpElementEvent(inpElement, "OnBlur");
+
+                                    decimal lngL8 = 0;
+                                    decimal OthrIn = 0;
+                                    if (DBNull.Value.Equals(dsData.Tables["P4_PLFST_SALES2"].Rows[0].ItemArray[0]) == false)
+                                    {
+                                        LogData = "P4_PLFST_SALES2 = " + dsData.Tables["P4_PLFST_SALES2"].Rows[0].ItemArray[0].ToString();
+                                        strComparator = dsData.Tables["P4_PLFST_SALES2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_PLFST_SALES2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
+                                        lngL8 = lngL8 + decimal.Parse(strComparator);
+
+                                    }
+
+                                    if (DBNull.Value.Equals(dsData.Tables["P4_PLFST_OPENSTOCK2"].Rows[0].ItemArray[0]) == false)
+                                    {
+                                        LogData = "P4_PLFST_OPENSTOCK2 = " + dsData.Tables["P4_PLFST_OPENSTOCK2"].Rows[0].ItemArray[0].ToString();
+                                        strComparator = dsData.Tables["P4_PLFST_OPENSTOCK2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_PLFST_OPENSTOCK2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
+                                        lngL8 = lngL8 - decimal.Parse(strComparator);
+
+                                    }
+
+                                    if (DBNull.Value.Equals(dsData.Tables["P4_PLFST_PURCHASE2"].Rows[0].ItemArray[0]) == false)
+                                    {
+                                        LogData = "P4_PLFST_PURCHASE2 = " + dsData.Tables["P4_PLFST_PURCHASE2"].Rows[0].ItemArray[0].ToString();
+                                        strComparator = dsData.Tables["P4_PLFST_PURCHASE2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_PLFST_PURCHASE2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
+                                        lngL8 = lngL8 - decimal.Parse(strComparator);
+                                    }
+
+                                    if (DBNull.Value.Equals(dsData.Tables["P4_EXP_DEPRECIATE2"].Rows[0].ItemArray[0]) == false)
+                                    {
+                                        LogData = "P4_EXP_DEPRECIATE2 = " + dsData.Tables["P4_EXP_DEPRECIATE2"].Rows[0].ItemArray[0].ToString();
+                                        strComparator = dsData.Tables["P4_EXP_DEPRECIATE2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_EXP_DEPRECIATE2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
+                                        lngL8 = lngL8 - decimal.Parse(strComparator);
+                                    }
+
+                                    if (DBNull.Value.Equals(dsData.Tables["P4_EXP_ALLOW2"].Rows[0].ItemArray[0]) == false)
+                                    {
+                                        LogData = "P4_EXP_ALLOW2 = " + dsData.Tables["P4_EXP_ALLOW2"].Rows[0].ItemArray[0].ToString();
+                                        strComparator = dsData.Tables["P4_EXP_ALLOW2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_EXP_ALLOW2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
+                                        lngL8 = lngL8 - decimal.Parse(strComparator);
+                                    }
+
+                                    if (DBNull.Value.Equals(dsData.Tables["P4_EXP_NONALLOW2"].Rows[0].ItemArray[0]) == false)
+                                    {
+                                        LogData = "P4_EXP_NONALLOW2 = " + dsData.Tables["P4_EXP_NONALLOW2"].Rows[0].ItemArray[0].ToString();
+                                        strComparator = dsData.Tables["P4_EXP_NONALLOW2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_EXP_NONALLOW2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
+                                        lngL8 = lngL8 - decimal.Parse(strComparator);
+                                    }
+
+                                    if (DBNull.Value.Equals(dsData.Tables["P4_PLFST_CLOSESTOCK2"].Rows[0].ItemArray[0]) == false)
+                                    {
+                                        LogData = "P4_PLFST_CLOSESTOCK2 = " + dsData.Tables["P4_PLFST_CLOSESTOCK2"].Rows[0].ItemArray[0].ToString();
+                                        strComparator = dsData.Tables["P4_PLFST_CLOSESTOCK2"].Rows[0].ItemArray[0].ToString() == "" ? strComparator = "0" : strComparator = dsData.Tables["P4_PLFST_CLOSESTOCK2"].Rows[0].ItemArray[0].ToString().Replace(",", "");
+                                        lngL8 = lngL8 + decimal.Parse(strComparator);
+
+                                    }
 
                                     if (lngL8 < 0)
                                     {
                                         lngL8 = 0;
 
                                     }
-                                    OthrIn = long.Parse(dsData.Tables["P4_PROFIT_LOSS"].Rows[0].ItemArray[0].ToString().Replace(",", "")); // other business income
-                                    lngL8 = lngL8 + OthrIn;
+                                    if (DBNull.Value.Equals(dsData.Tables["P4_PROFIT_LOSS"].Rows[0].ItemArray[0]) == false)
+                                    {
+                                        LogData = "P4_PROFIT_LOSS = " + dsData.Tables["P4_PROFIT_LOSS"].Rows[0].ItemArray[0].ToString().Replace(",", "");
+                                        OthrIn = decimal.Parse(dsData.Tables["P4_PROFIT_LOSS"].Rows[0].ItemArray[0].ToString().Replace(",", "")); // other business income
+                                        lngL8 = lngL8 + OthrIn;
+                                    }
+
                                     inpElement.value = lngL8.ToString();
                                     FireInpElementEvent(inpElement, "OnBlur");
                                     break;
@@ -38009,7 +38082,7 @@ namespace IEToolBar
             }
             catch (Exception ex)
             {
-                System.Windows.Forms.MessageBox.Show(ex.ToString());
+                System.Windows.Forms.MessageBox.Show(test + " = " + ex.ToString());
             }
         }
 		

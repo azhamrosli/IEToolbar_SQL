@@ -10704,6 +10704,2581 @@ namespace IEToolBar
         }
         //simkh end
 
+        private void ProcessFormM2013(mshtml.HTMLDocument htmlDoc, String strPageIndex)
+        {
+            try
+            {
+                EFilingDALM2013 dal = new EFilingDALM2013(strTaxPayer, strYA, strTaxAgent);
+                DataSet dsData = new DataSet();
+                dsData = dal.GetFormDataM2013(strPageIndex);
+                dal.CloseConn();
+                double nTotal = 0, nTotal1 = 0, nTotal2 = 0;
+                DataRow dr;
+
+                foreach (mshtml.HTMLInputElement inpElement in htmlDoc.getElementsByTagName("input"))
+                {
+                    switch (strPageIndex)
+                    {
+                        #region "Input Page 1"
+                        case "M2013Page1":
+                            switch (inpElement.name)
+                            {
+                                case "ctl00$master1$txtF00009"://Passport No
+                                    inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[0].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00305_thn":
+                                    if (!String.IsNullOrEmpty(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[1].ToString()))
+                                    {
+                                        inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[1].ToString().Substring(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[1].ToString().LastIndexOf('/') + 1, 4);
+                                    }
+                                    else
+                                    {
+                                        inpElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00377_thn":
+                                    if (!String.IsNullOrEmpty(dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[0].ToString()))
+                                    {
+                                        inpElement.value = dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[0].ToString().Substring(dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[0].ToString().LastIndexOf('/') + 1, 4);
+                                    }
+                                    else
+                                    {
+                                        inpElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$txtf00014_Thn"://Date of Marriage/Divorce/Demise
+                                    if (dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[5].ToString() == "2")
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[6].ToString()))
+                                        {
+                                            inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[6].ToString().Substring(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[6].ToString().LastIndexOf('/') + 1, 4);
+                                        }
+                                        else
+                                        {
+                                            inpElement.value = "";
+                                        }
+                                    }
+                                    else if ((dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[5].ToString() == "3") || (dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[5].ToString() == "4"))
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[7].ToString()))
+                                        {
+                                            inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[7].ToString().Substring(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[7].ToString().LastIndexOf('/') + 1, 4);
+                                        }
+                                        else
+                                        {
+                                            inpElement.value = "";
+                                        }
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00019"://Correspondence Add
+                                    inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[10].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00020"://Correspondence Add
+                                    inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[11].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00021"://Correspondence Add
+                                    inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[12].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00022"://Correspondence Add
+                                    inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[13].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00023"://Correspondence Add
+                                    inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[14].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00025"://Permanent Add
+                                    inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[16].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00026"://Permanent Add
+                                    inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[17].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00027"://Permanent Add
+                                    inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[18].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00028"://Permanent Add
+                                    inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[19].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00029"://Permanent Add
+                                    inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[20].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00031"://Business Premise Add
+                                    inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[22].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00032"://Business Premise Add
+                                    inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[23].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00033"://Business Premise Add
+                                    inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[24].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00034"://Business Premise Add
+                                    inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[25].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00035"://Business Premise Add
+                                    inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[26].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00041"://Tel
+                                    inpElement.value = (dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[28].ToString() + "-" + dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[29].ToString());
+                                    break;
+                                case "ctl00$master1$txtF00043"://email
+                                    inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[30].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00401"://Web Blog
+                                    inpElement.value = dsData.Tables["P1_TAX_PROFILE_OTHERS"].Rows[0].ItemArray[0].ToString();
+                                    break;
+                                //case "ctl00$master1$txtF00044"://Bank Name
+                                //    inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[31].ToString();
+                                //    break;
+                                case "ctl00$master1$txtF00045"://Bank A/C No
+                                    inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[32].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00037"://Employer Name
+                                    inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[33].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00040"://Employer No
+                                    inpElement.value = (dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[34].ToString() + dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[35].ToString());
+                                    break;
+
+                                //lyeyc
+                                case "ctl00$master1$chkboxF00419"://correspondence address belongs to a tax agent
+                                    if (dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[2].ToString() == "1")
+                                    {
+                                        inpElement.@checked = true;
+                                    }
+                                    else
+                                    {
+                                        inpElement.@checked = false;
+                                    }
+                                    //FireInpElementEvent(inpElement, "OnClick");
+                                    break;
+                                //lyeyc (end)
+                            }
+                            break;
+                        #endregion
+
+                        #region "Input Page 2"
+                        case "M2013Page2":
+                            switch (inpElement.name)
+                            {
+                                case "ctl00$master1$txtF00052"://Wife Name
+                                    inpElement.value = dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[0].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00055"://Ref No
+                                    inpElement.value = (dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[2].ToString() + dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[3].ToString() + dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[4].ToString());
+                                    break;
+                                case "ctl00$master1$txtF00057"://IC No/ Police No/ Army No/ Passport No
+                                    if (dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[5].ToString() + dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[6].ToString() + dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[7].ToString() != "")
+                                    {
+                                        inpElement.value = (dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[5].ToString() + dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[6].ToString() + dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[7].ToString());
+                                    }
+                                    else if (dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[8].ToString() != "")
+                                    {
+                                        inpElement.value = dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[8].ToString();
+                                    }
+                                    else if (dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[9].ToString() != "")
+                                    {
+                                        inpElement.value = dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[9].ToString();
+                                    }
+                                    else if (dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[10].ToString() != "")
+                                    {
+                                        inpElement.value = dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[10].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00060"://Current Passport No
+                                    inpElement.value = dsData.Tables["P2_TAXP_PROFILE2"].Rows[0].ItemArray[0].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00306_thn"://Expire Date of Current Passport
+                                    if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[11].ToString()))
+                                    {
+                                        inpElement.value = dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[11].ToString().Substring(dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[11].ToString().LastIndexOf('/') + 1, 4);
+                                    }
+                                    else
+                                    {
+                                        inpElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00379_thn"://Date of Birth
+                                    if (!String.IsNullOrEmpty(dsData.Tables["P2_TAXP_PROFILE2"].Rows[0].ItemArray[1].ToString()))
+                                    {
+                                        inpElement.value = dsData.Tables["P2_TAXP_PROFILE2"].Rows[0].ItemArray[1].ToString().Substring(dsData.Tables["P2_TAXP_PROFILE2"].Rows[0].ItemArray[1].ToString().LastIndexOf('/') + 1, 4);
+                                    }
+                                    else
+                                    {
+                                        inpElement.value = "";
+                                    }
+                                    break;
+
+                                //lyeyc
+                                //2nd wife
+                                case "ctl00$master1$txtF00052_1"://Wife Name
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[0].ToString();
+                                    }
+                                    break;
+
+                                case "ctl00$master1$txtF00055_1"://Ref No
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[2].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[3].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[4].ToString());
+                                    }
+                                    break;
+
+                                case "ctl00$master1$txtF00057_1"://IC No/ Police No/ Army No/ Passport No
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 0)
+                                    {
+                                        if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[5].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[6].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[7].ToString() != "")
+                                        {
+                                            inpElement.value = (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[5].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[6].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[7].ToString());
+                                        }
+                                        else if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[8].ToString() != "")
+                                        {
+                                            inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[8].ToString();
+                                        }
+                                        else if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[9].ToString() != "")
+                                        {
+                                            inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[9].ToString();
+                                        }
+                                        else if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[10].ToString() != "")
+                                        {
+                                            inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[10].ToString();
+                                        }
+                                    }
+                                    break;
+
+                                case "ctl00$master1$txtF00060_1"://Current Passport No
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[10].ToString();
+
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00306_1_thn"://Expire Date of Current Passport
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 0)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[12].ToString()))
+                                        {
+                                            inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[12].ToString().Substring(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[12].ToString().LastIndexOf('/') + 1, 4);
+                                        }
+                                        else
+                                        {
+                                            inpElement.value = "";
+                                        }
+
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00379_1_thn"://Date of Birth
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 0)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[13].ToString()))
+                                        {
+                                            inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[13].ToString().Substring(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[13].ToString().LastIndexOf('/') + 1, 4);
+                                        }
+                                        else
+                                        {
+                                            inpElement.value = "";
+                                        }
+
+                                    }
+                                    break;
+
+                                //3rd wife
+                                case "ctl00$master1$txtF00052_2"://Wife Name
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 1)
+                                    {
+                                        inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[0].ToString();
+                                    }
+                                    break;
+
+                                case "ctl00$master1$txtF00055_2"://Ref No
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 1)
+                                    {
+                                        inpElement.value = (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[2].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[3].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[4].ToString());
+                                    }
+                                    break;
+
+                                case "ctl00$master1$txtF00057_2"://IC No/ Police No/ Army No/ Passport No
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 1)
+                                    {
+                                        if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[5].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[6].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[7].ToString() != "")
+                                        {
+                                            inpElement.value = (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[5].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[6].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[7].ToString());
+                                        }
+                                        else if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[8].ToString() != "")
+                                        {
+                                            inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[8].ToString();
+                                        }
+                                        else if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[9].ToString() != "")
+                                        {
+                                            inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[9].ToString();
+                                        }
+                                        else if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[10].ToString() != "")
+                                        {
+                                            inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[10].ToString();
+                                        }
+                                    }
+                                    break;
+
+                                case "ctl00$master1$txtF00060_2"://Current Passport No
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 1)
+                                    {
+                                        inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[10].ToString();
+
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00306_2_thn"://Expire Date of Current Passport
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 1)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[12].ToString()))
+                                        {
+                                            inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[12].ToString().Substring(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[12].ToString().LastIndexOf('/') + 1, 4);
+                                        }
+                                        else
+                                        {
+                                            inpElement.value = "";
+                                        }
+
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00379_2_thn"://Date of Birth
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 1)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[13].ToString()))
+                                        {
+                                            inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[13].ToString().Substring(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[13].ToString().LastIndexOf('/') + 1, 4);
+                                        }
+                                        else
+                                        {
+                                            inpElement.value = "";
+                                        }
+
+                                    }
+                                    break;
+
+                                //4th wife
+                                case "ctl00$master1$txtF00052_3"://Wife Name
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 2)
+                                    {
+                                        inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[0].ToString();
+                                    }
+                                    break;
+
+                                case "ctl00$master1$txtF00055_3"://Ref No
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 2)
+                                    {
+                                        inpElement.value = (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[2].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[3].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[4].ToString());
+                                    }
+                                    break;
+
+                                case "ctl00$master1$txtF00057_3"://IC No/ Police No/ Army No/ Passport No
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 2)
+                                    {
+                                        if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[5].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[6].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[7].ToString() != "")
+                                        {
+                                            inpElement.value = (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[5].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[6].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[7].ToString());
+                                        }
+                                        else if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[8].ToString() != "")
+                                        {
+                                            inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[8].ToString();
+                                        }
+                                        else if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[9].ToString() != "")
+                                        {
+                                            inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[9].ToString();
+                                        }
+                                        else if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[10].ToString() != "")
+                                        {
+                                            inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[10].ToString();
+                                        }
+                                    }
+                                    break;
+
+                                case "ctl00$master1$txtF00060_3"://Current Passport No
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 2)
+                                    {
+                                        inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[10].ToString();
+
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00306_3_thn"://Expire Date of Current Passport
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 2)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[12].ToString()))
+                                        {
+                                            inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[12].ToString().Substring(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[12].ToString().LastIndexOf('/') + 1, 4);
+                                        }
+                                        else
+                                        {
+                                            inpElement.value = "";
+                                        }
+
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00379_3_thn"://Date of Birth
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 2)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[13].ToString()))
+                                        {
+                                            inpElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[13].ToString().Substring(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[13].ToString().LastIndexOf('/') + 1, 4);
+                                        }
+                                        else
+                                        {
+                                            inpElement.value = "";
+                                        }
+
+                                    }
+                                    break;
+                                //lyeyc (end)
+                            }
+                            break;
+                        #endregion
+
+                        #region "Input Page 3"
+                        case "M2013Page3":
+                            switch (inpElement.name)
+                            {
+                                case "ctl00$master1$txtF00061"://Business Code 1
+                                    if (dsData.Tables["P3_INCOME_ADJUSTED"].Rows.Count > 0)
+                                    {
+                                        dr = dsData.Tables["P3_BUSINESS_SOURCE"].Rows.Find(dsData.Tables["P3_INCOME_ADJUSTED"].Rows[0].ItemArray[0].ToString());
+                                        inpElement.value = dr["BC_CODE"].ToString();
+                                    }
+                                    else if (dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows.Count > 0)
+                                    {
+                                        if (double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[0].ToString()) > 0)
+                                        {
+                                            inpElement.value = "70102";
+                                        }
+                                        else
+                                        {
+                                            inpElement.value = "";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        inpElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00062"://Amount 1
+                                    if (dsData.Tables["P3_INCOME_ADJUSTED"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_INCOME_ADJUSTED"].Rows[0].ItemArray[1].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P3_INCOME_ADJUSTED"].Rows[0].ItemArray[1].ToString());
+                                    }
+                                    else if (dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows.Count > 0)
+                                    {
+                                        if (double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[0].ToString()) > 0)
+                                        {
+                                            inpElement.value = dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[0].ToString();
+                                        }
+                                        else
+                                        {
+                                            inpElement.value = "";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        inpElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00063"://Business Code 2
+                                    if (dsData.Tables["P3_INCOME_ADJUSTED"].Rows.Count > 1)
+                                    {
+                                        dr = dsData.Tables["P3_BUSINESS_SOURCE"].Rows.Find(dsData.Tables["P3_INCOME_ADJUSTED"].Rows[1].ItemArray[0].ToString());
+                                        inpElement.value = dr["BC_CODE"].ToString();
+                                    }
+                                    else if ((dsData.Tables["P3_INCOME_ADJUSTED"].Rows.Count > 0) && (dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows.Count > 0))
+                                    {
+                                        if (double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[0].ToString()) > 0)
+                                        {
+                                            inpElement.value = "70102";
+                                        }
+                                        else
+                                        {
+                                            inpElement.value = "";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        inpElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00064"://Amount 2
+                                    if (dsData.Tables["P3_INCOME_ADJUSTED"].Rows.Count > 1)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_INCOME_ADJUSTED"].Rows[1].ItemArray[1].ToString();
+                                        nTotal = nTotal + double.Parse(dsData.Tables["P3_INCOME_ADJUSTED"].Rows[1].ItemArray[1].ToString());
+                                    }
+                                    else if ((dsData.Tables["P3_INCOME_ADJUSTED"].Rows.Count > 0) && (dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows.Count > 0))
+                                    {
+                                        if (double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[0].ToString()) > 0)
+                                        {
+                                            inpElement.value = dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[0].ToString();
+                                        }
+                                        else
+                                        {
+                                            inpElement.value = "";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        inpElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00065"://Business Code 3
+                                    if (dsData.Tables["P3_INCOME_ADJUSTED"].Rows.Count > 2)
+                                    {
+                                        if (dsData.Tables["P3_INCOME_ADJUSTED"].Rows.Count == 3)
+                                        {
+                                            dr = dsData.Tables["P3_BUSINESS_SOURCE"].Rows.Find(dsData.Tables["P3_INCOME_ADJUSTED"].Rows[2].ItemArray[0].ToString());
+                                            inpElement.value = dr["BC_CODE"].ToString();
+                                        }
+                                    }
+                                    else if ((dsData.Tables["P3_INCOME_ADJUSTED"].Rows.Count > 1) && (dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows.Count > 0))
+                                    {
+                                        if (double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[0].ToString()) > 0)
+                                        {
+                                            inpElement.value = "70102";
+                                        }
+                                        else
+                                        {
+                                            inpElement.value = "";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        inpElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00066"://Amount 3
+                                    if (dsData.Tables["P3_INCOME_ADJUSTED"].Rows.Count > 2)
+                                    {
+                                        for (int i = 0; i < dsData.Tables["P3_INCOME_ADJUSTED"].Rows.Count; i++)
+                                        {
+                                            nTotal1 = nTotal1 + double.Parse(dsData.Tables["P3_INCOME_ADJUSTED"].Rows[i].ItemArray[1].ToString());
+                                        }
+                                        nTotal = nTotal1 - nTotal;
+                                        if (dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows.Count > 0)
+                                        {
+                                            nTotal = nTotal + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[0].ToString());
+                                        }
+                                        inpElement.value = Convert.ToString(nTotal);
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00067"://Tax Reference 1
+                                    if (dsData.Tables["P3_INCOME_PARTNERSHIP"].Rows.Count > 0)
+                                    {
+                                        dr = dsData.Tables["P3_TAXP_PARTNERSHIP"].Rows.Find(dsData.Tables["P3_INCOME_PARTNERSHIP"].Rows[0].ItemArray[0].ToString());
+                                        inpElement.value = (dr["PS_FILE_NO2"].ToString() + dr["PS_FILE_NO3"].ToString());
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00068"://Amount 1
+                                    nTotal = 0;
+                                    if (dsData.Tables["P3_INCOME_PARTNERSHIP"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_INCOME_PARTNERSHIP"].Rows[0].ItemArray[1].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P3_INCOME_PARTNERSHIP"].Rows[0].ItemArray[1].ToString());
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00069"://Tax Reference 2
+                                    if (dsData.Tables["P3_INCOME_PARTNERSHIP"].Rows.Count > 1)
+                                    {
+                                        dr = dsData.Tables["P3_TAXP_PARTNERSHIP"].Rows.Find(dsData.Tables["P3_INCOME_PARTNERSHIP"].Rows[1].ItemArray[0].ToString());
+                                        inpElement.value = (dr["PS_FILE_NO2"].ToString() + dr["PS_FILE_NO3"].ToString());
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00070"://Amount 2
+                                    if (dsData.Tables["P3_INCOME_PARTNERSHIP"].Rows.Count > 1)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_INCOME_PARTNERSHIP"].Rows[1].ItemArray[1].ToString();
+                                        nTotal = nTotal + double.Parse(dsData.Tables["P3_INCOME_PARTNERSHIP"].Rows[1].ItemArray[1].ToString());
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00071"://Tax Reference 3
+                                    if (dsData.Tables["P3_INCOME_PARTNERSHIP"].Rows.Count > 2)
+                                    {
+                                        if (dsData.Tables["P3_INCOME_PARTNERSHIP"].Rows.Count == 3)
+                                        {
+                                            dr = dsData.Tables["P3_TAXP_PARTNERSHIP"].Rows.Find(dsData.Tables["P3_INCOME_PARTNERSHIP"].Rows[2].ItemArray[0].ToString());
+                                            inpElement.value = (dr["PS_FILE_NO2"].ToString() + dr["PS_FILE_NO3"].ToString());
+                                        }
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00072"://Amount 3
+                                    nTotal1 = 0;
+                                    if (dsData.Tables["P3_INCOME_PARTNERSHIP"].Rows.Count > 2)
+                                    {
+                                        for (int i = 0; i < dsData.Tables["P3_INCOME_PARTNERSHIP"].Rows.Count; i++)
+                                        {
+                                            nTotal1 = nTotal1 + double.Parse(dsData.Tables["P3_INCOME_PARTNERSHIP"].Rows[i].ItemArray[1].ToString());
+                                        }
+                                        nTotal = nTotal1 - nTotal;
+                                        inpElement.value = Convert.ToString(nTotal);
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00074"://Business losses b/f
+                                    if (dsData.Tables["P3_TAX_COMPUTATION"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[0].ToString();
+                                    }
+                                    else
+                                    {
+                                        inpElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00076"://Employment
+                                    if (dsData.Tables["P3_TAX_COMPUTATION"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[1].ToString();
+                                    }
+                                    else
+                                    {
+                                        inpElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00077"://Dividend
+                                    if (dsData.Tables["P3_TAX_COMPUTATION"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[4].ToString();
+                                    }
+                                    else
+                                    {
+                                        inpElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00078"://Interest and Discount
+                                    inpElement.value = Convert.ToString((double.Parse(dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[5].ToString()) + double.Parse(dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[6].ToString())));
+                                    break;
+                                case "ctl00$master1$txtF00079"://Rent, royalties and premiums
+                                    inpElement.value = Convert.ToString((double.Parse(dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[7].ToString()) + double.Parse(dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[8].ToString())));
+                                    break;
+                                case "ctl00$master1$txtF00080"://Pension, annuities and other periodical payments
+                                    inpElement.value = Convert.ToString(double.Parse(dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[9].ToString()));
+                                    break;
+                                case "ctl00$master1$txtF00081"://Other gains or profits
+                                    inpElement.value = Convert.ToString(double.Parse(dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[10].ToString()) + double.Parse(dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[11].ToString()));
+
+                                    break;
+                                case "ctl00$master1$txtF00082"://Paragraph 43(1)(c)
+                                    if (dsData.Tables["P3_TAX_COMPUTATION"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[12].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00085"://Current Year business losses
+                                    if (dsData.Tables["P3_TAX_COMPUTATION"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[13].ToString();
+                                    }
+                                    else
+                                    {
+                                        inpElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00087"://Schedule 4 and paragraph 44(1)(b)
+                                    if (dsData.Tables["P3_TAX_COMPUTATION"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[18].ToString();
+                                    }
+                                    else
+                                    {
+                                        inpElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00090"://Gift to Government, State Government or local authorities
+                                    dr = dsData.Tables["P3_TAX_GIFTS"].Rows.Find("9");
+                                    inpElement.value = dr["TCG_AMOUNT"].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00393"://Gift to approved institutions or organization
+                                    dr = dsData.Tables["P3_TAX_GIFTS"].Rows.Find("1");
+                                    inpElement.value = dr["TCG_AMOUNT"].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00389"://Gift to sports activity
+                                    dr = dsData.Tables["P3_TAX_GIFTS"].Rows.Find("7");
+                                    inpElement.value = dr["TCG_AMOUNT"].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00390"://Gift to contribution for project of national interest
+                                    dr = dsData.Tables["P3_TAX_GIFTS"].Rows.Find("8");
+                                    inpElement.value = dr["TCG_AMOUNT"].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00091"://Gift artefacts, manuscript or painting
+                                    dr = dsData.Tables["P3_TAX_GIFTS"].Rows.Find("2");
+                                    inpElement.value = dr["TCG_AMOUNT"].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00092"://Gift of library
+                                    dr = dsData.Tables["P3_TAX_GIFTS"].Rows.Find("3");
+                                    inpElement.value = dr["TCG_AMOUNT"].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00093"://Gift of public facilities of disabled persons
+                                    dr = dsData.Tables["P3_TAX_GIFTS"].Rows.Find("4");
+                                    inpElement.value = dr["TCG_AMOUNT"].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00094"://Gift of medical equipment to any healthcare facility
+                                    dr = dsData.Tables["P3_TAX_GIFTS"].Rows.Find("5");
+                                    inpElement.value = dr["TCG_AMOUNT"].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00095"://Gift of National Art Gallery
+                                    dr = dsData.Tables["P3_TAX_GIFTS"].Rows.Find("6");
+                                    inpElement.value = dr["TCG_AMOUNT"].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00349"://Taxable Pioneer Income
+                                    inpElement.value = dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[14].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00336"://Interest
+                                    inpElement.value = dsData.Tables["P3_CHARGEABLE_INCOME"].Rows[0].ItemArray[0].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00337"://Royalties
+                                    inpElement.value = dsData.Tables["P3_CHARGEABLE_INCOME"].Rows[0].ItemArray[1].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00307"://Section 4A
+                                    inpElement.value = dsData.Tables["P3_CHARGEABLE_INCOME"].Rows[0].ItemArray[2].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00342"://Other Income - Please specify:
+                                    break;
+                                case "ctl00$master1$txtF00338"://Other Income
+                                    inpElement.value = dsData.Tables["P3_CHARGEABLE_INCOME"].Rows[0].ItemArray[3].ToString();
+                                    break;
+                                //lyeyc
+                                case "ctl00$master1$txtF00099a"://Dividend Income of husband /wife
+                                    inpElement.value = dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[20].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00099b"://Income transfer from husband/wife
+                                    inpElement.value = dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[21].ToString();
+                                    break;
+                                //lyeyc (end)
+                                case "ctl00$master1$txtF00165"://Installment/ Schedular
+                                    inpElement.value = Convert.ToString(double.Parse(dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[16].ToString()) + double.Parse(dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[17].ToString()));
+                                    break;
+                                //weihong
+                                case "ctl00$master1$txtF00410":
+                                    if (!String.IsNullOrEmpty(dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[19].ToString()))
+                                    {
+                                        inpElement.value = dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[19].ToString();
+                                    }
+                                    else
+                                    {
+                                        inpElement.value = "";
+                                    }
+                                    break;
+                                //weihong Gross income from employment
+                                case "ctl00$master1$txtF00417":
+                                    if (dsData.Tables["P3_INCOME_EMPLOYMENT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_INCOME_EMPLOYMENT"].Rows[0].ItemArray[0].ToString();
+                                    }
+                                    else
+                                    {
+                                        inpElement.value = "0";
+                                    }
+                                    break;
+
+                                case "ctl00$master1$txtF00418"://Total gross income from all sources (weihong)
+                                    if (dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = Convert.ToString(double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[1].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[2].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[3].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[4].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[5].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[6].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[7].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[8].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[9].ToString()));
+
+                                        if (dsData.Tables["P3_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                        {
+                                            inpElement.value = Convert.ToString(double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[1].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[2].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[3].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[4].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[5].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[6].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[7].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[8].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[9].ToString()) + double.Parse(dsData.Tables["P3_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[0].ToString()));
+                                            if (dsData.Tables["P3_INCOME_EMPLOYMENT"].Rows.Count > 0)
+                                            {
+                                                inpElement.value = Convert.ToString(double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[1].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[2].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[3].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[4].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[5].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[6].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[7].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[8].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[9].ToString()) + double.Parse(dsData.Tables["P3_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[0].ToString()) + double.Parse(dsData.Tables["P3_INCOME_EMPLOYMENT"].Rows[0].ItemArray[1].ToString()));
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (dsData.Tables["P3_INCOME_EMPLOYMENT"].Rows.Count > 0)
+                                            {
+                                                inpElement.value = Convert.ToString(double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[1].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[2].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[3].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[4].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[5].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[6].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[7].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[8].ToString()) + double.Parse(dsData.Tables["P3_INCOME_OTHERSOURCE"].Rows[0].ItemArray[9].ToString()) + double.Parse(dsData.Tables["P3_INCOME_EMPLOYMENT"].Rows[0].ItemArray[1].ToString()));
+                                            }
+                                        }
+
+                                    }
+                                    else
+                                    {
+                                        if (dsData.Tables["P3_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                        {
+                                            inpElement.value = Convert.ToString(double.Parse(dsData.Tables["P3_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[0].ToString()));
+                                            if (dsData.Tables["P3_INCOME_EMPLOYMENT"].Rows.Count > 0)
+                                            {
+                                                inpElement.value = Convert.ToString(double.Parse(dsData.Tables["P3_INCOME_EMPLOYMENT"].Rows[0].ItemArray[1].ToString()) + double.Parse(dsData.Tables["P3_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[0].ToString()));
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (dsData.Tables["P3_INCOME_EMPLOYMENT"].Rows.Count > 0)
+                                            {
+                                                inpElement.value = Convert.ToString(double.Parse(dsData.Tables["P3_INCOME_EMPLOYMENT"].Rows[0].ItemArray[1].ToString()));
+                                            }
+                                            else
+                                            {
+                                                inpElement.value = "";
+                                            }
+                                        }
+                                    }
+                                    break;
+                                //weihong
+                            }
+                            FireInpElementEvent(inpElement, "OnBlur");
+                            break;
+                        #endregion
+
+                        #region "Input Page 4"
+                        case "M2013Page4":
+                            switch (inpElement.name)
+                            {
+                                //Preceding Years Income
+
+                                case "ctl00$master1$txtF00169"://Type of income
+                                    if (dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows[0].ItemArray[0].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00170"://Year for which paid
+                                    if (dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows[0].ItemArray[1].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00171"://Gross Amount
+                                    if (dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows[0].ItemArray[2].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00172"://Provident and pension fund contribution
+                                    if (dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows[0].ItemArray[3].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00173"://Type of income
+                                    if (dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows.Count > 1)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows[1].ItemArray[0].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00174"://Year for which paid
+                                    if (dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows.Count > 1)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows[1].ItemArray[1].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00175"://Gross Amount
+                                    if (dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows.Count > 1)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows[1].ItemArray[2].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00176"://Provident and pension fund contribution
+                                    if (dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows.Count > 1)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows[1].ItemArray[3].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00177"://Type of income
+                                    if (dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows.Count > 2)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows[2].ItemArray[0].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00178"://Year for which paid
+                                    if (dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows.Count > 2)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows[2].ItemArray[1].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00179"://Gross Amount
+                                    if (dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows.Count > 2)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows[2].ItemArray[2].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00180"://Provident and pension fund contribution
+                                    if (dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows.Count > 2)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows[2].ItemArray[3].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00361"://Type of income
+                                    if (dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows.Count > 3)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows[3].ItemArray[0].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00362"://Year for which paid
+                                    if (dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows.Count > 3)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows[3].ItemArray[1].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00363"://Gross Amount
+                                    if (dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows.Count > 3)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows[3].ItemArray[2].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00364"://Provident and pension fund contribution
+                                    if (dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows.Count > 3)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows[3].ItemArray[3].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00365"://Type of income
+                                    if (dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows.Count > 4)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows[4].ItemArray[0].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00366"://Year for which paid
+                                    if (dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows.Count > 4)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows[4].ItemArray[1].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00367"://Gross Amount
+                                    if (dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows.Count > 4)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows[4].ItemArray[2].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00368"://Provident and pension fund contribution'
+                                    if (dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows.Count > 4)
+                                    {
+                                        inpElement.value = dsData.Tables["P3_PRECEDING_YEAR_DETAIL"].Rows[4].ItemArray[3].ToString();
+                                    }
+                                    break;
+                            }
+                            FireInpElementEvent(inpElement, "OnBlur");
+                            break;
+                        #endregion
+
+                        #region "Input Page 5"
+                        case "M2013Page5":
+                            switch (inpElement.name)
+                            {
+                                case "ctl00$master1$txtF00149"://Chargeable Income 0
+                                    inpElement.value = dsData.Tables["P4_CHARGEABLE_INCOME"].Rows[0].ItemArray[0].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00316"://Chargeable Income 1
+                                    inpElement.value = dsData.Tables["P4_CHARGEABLE_INCOME"].Rows[0].ItemArray[1].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00319"://Chargeable Income 2
+                                    inpElement.value = dsData.Tables["P4_CHARGEABLE_INCOME"].Rows[0].ItemArray[2].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00322"://Chargeable Income 3
+                                    inpElement.value = dsData.Tables["P4_CHARGEABLE_INCOME"].Rows[0].ItemArray[3].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00325"://Chargeable Income 4
+                                    inpElement.value = dsData.Tables["P4_CHARGEABLE_INCOME"].Rows[0].ItemArray[4].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00328"://Chargeable Income 5
+                                    inpElement.value = dsData.Tables["P4_CHARGEABLE_INCOME"].Rows[0].ItemArray[5].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00331"://Chargeable Income 6
+                                    inpElement.value = dsData.Tables["P4_CHARGEABLE_INCOME"].Rows[0].ItemArray[6].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00332"://Rate 1
+                                    inpElement.value = dsData.Tables["P4_CHARGEABLE_INCOME"].Rows[0].ItemArray[7].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00157"://Rebate - Levy
+                                    dr = dsData.Tables["P3_TAX_REBATE"].Rows.Find("5");
+                                    inpElement.value = dr["TCR_AMOUNT"].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00160"://Sec 110 (Dividend)
+                                    inpElement.value = dsData.Tables["P4_TAX_COMPUTATION"].Rows[0].ItemArray[0].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00161"://Sec 110 (Others)
+                                    inpElement.value = dsData.Tables["P4_TAX_COMPUTATION"].Rows[0].ItemArray[1].ToString();
+                                    break;
+                                //case "ctl00$master1$txtF00308"://Sec 130
+                                //    inpElement.value = dsData.Tables["P4_TAX_COMPUTATION"].Rows[0].ItemArray[2].ToString();
+                                //    break;
+                                ////case "ctl00$master1$txtF00347"://Sec 130
+                                ////    inpElement.value = dsData.Tables["P4_TAX_COMPUTATION"].Rows[0].ItemArray[2].ToString();
+                                ////    break;
+
+                                //lyeyc
+                                case "ctl00$master1$txtF00347"://Sec 133
+                                    inpElement.value = dsData.Tables["P4_TAX_COMPUTATION"].Rows[0].ItemArray[3].ToString();
+                                    break;
+                                //lyeyc (end)
+                            }
+                            FireInpElementEvent(inpElement, "OnBlur");
+                            break;
+                        #endregion
+
+                        #region "Input Page 6"
+                        case "M2013Page6":
+                            switch (inpElement.name)
+                            {
+                                case "ctl00$master1$txtF00403":
+                                    if (dsData.Tables["P5_ADJUSTED_LOSS"].Rows.Count > 0)
+                                    {
+                                        if (dsData.Tables["P5_ADJUSTED_LOSS"].Rows[0].ItemArray[0] != null)
+                                        {
+                                            if (!String.IsNullOrEmpty(dsData.Tables["P5_ADJUSTED_LOSS"].Rows[0].ItemArray[0].ToString()))
+                                            {
+                                                inpElement.value = dsData.Tables["P5_ADJUSTED_LOSS"].Rows[0].ItemArray[0].ToString();
+                                            }
+                                            else
+                                            {
+                                                inpElement.value = "0";
+                                            }
+                                        }
+                                        else
+                                        {
+                                            inpElement.value = "0";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        inpElement.value = "0";
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00190"://Balance from current year
+                                    if (dsData.Tables["P5_TAX_COMPUTATION"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P5_TAX_COMPUTATION"].Rows[0].ItemArray[0].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00191"://Balance from previous year
+                                    if (dsData.Tables["P5_TAX_COMPUTATION"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P5_TAX_COMPUTATION"].Rows[0].ItemArray[1].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00351"://Pioneer Loss Amount Absorbed
+                                    if (dsData.Tables["P5_TAX_COMPUTATION"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P5_TAX_COMPUTATION"].Rows[0].ItemArray[2].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00352"://Pioneer Loss c/f
+                                    if (dsData.Tables["P5_TAX_COMPUTATION"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P5_TAX_COMPUTATION"].Rows[0].ItemArray[3].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00193"://Business 1 Absorbed
+                                    nTotal = 0;
+                                    if (dsData.Tables["P5_INCOME_ADJUSTED"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P5_INCOME_ADJUSTED"].Rows[0].ItemArray[0].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P5_INCOME_ADJUSTED"].Rows[0].ItemArray[0].ToString());
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00194"://Business 1 c/f
+                                    nTotal1 = 0;
+                                    if (dsData.Tables["P5_INCOME_ADJUSTED"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P5_INCOME_ADJUSTED"].Rows[0].ItemArray[1].ToString();
+                                        nTotal1 = double.Parse(dsData.Tables["P5_INCOME_ADJUSTED"].Rows[0].ItemArray[1].ToString());
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00195"://Business 2 Absorbed
+                                    if (dsData.Tables["P5_INCOME_ADJUSTED"].Rows.Count > 1)
+                                    {
+                                        inpElement.value = dsData.Tables["P5_INCOME_ADJUSTED"].Rows[1].ItemArray[0].ToString();
+                                        nTotal = nTotal + double.Parse(dsData.Tables["P5_INCOME_ADJUSTED"].Rows[1].ItemArray[0].ToString());
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00196"://Business 2 c/f
+                                    if (dsData.Tables["P5_INCOME_ADJUSTED"].Rows.Count > 1)
+                                    {
+                                        inpElement.value = dsData.Tables["P5_INCOME_ADJUSTED"].Rows[1].ItemArray[1].ToString();
+                                        nTotal1 = nTotal1 + double.Parse(dsData.Tables["P5_INCOME_ADJUSTED"].Rows[1].ItemArray[1].ToString());
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00197"://Business 3++ Absorbed
+                                    if (dsData.Tables["P5_INCOME_ADJUSTED"].Rows.Count > 2)
+                                    {
+                                        for (int i = 0; i < dsData.Tables["P5_INCOME_ADJUSTED"].Rows.Count; i++)
+                                        {
+                                            nTotal2 = nTotal2 + double.Parse(dsData.Tables["P5_INCOME_ADJUSTED"].Rows[i].ItemArray[0].ToString());
+                                        }
+                                        nTotal = nTotal2 - nTotal;
+                                        inpElement.value = Convert.ToString(nTotal);
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00198"://Business 3++ c/f
+                                    nTotal2 = 0;
+                                    if (dsData.Tables["P5_INCOME_ADJUSTED"].Rows.Count > 2)
+                                    {
+                                        for (int i = 0; i < dsData.Tables["P5_INCOME_ADJUSTED"].Rows.Count; i++)
+                                        {
+                                            nTotal2 = nTotal2 + double.Parse(dsData.Tables["P5_INCOME_ADJUSTED"].Rows[i].ItemArray[1].ToString());
+                                        }
+                                        nTotal1 = nTotal2 - nTotal1;
+                                        inpElement.value = Convert.ToString(nTotal1);
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00199"://Partnership 1 Absorbed
+                                    nTotal = 0;
+                                    if (dsData.Tables["P5_INCOME_PARTNERSHIP"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P5_INCOME_PARTNERSHIP"].Rows[0].ItemArray[0].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P5_INCOME_PARTNERSHIP"].Rows[0].ItemArray[0].ToString());
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00200"://Partnership 1 c/f
+                                    nTotal1 = 0;
+                                    if (dsData.Tables["P5_INCOME_PARTNERSHIP"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P5_INCOME_PARTNERSHIP"].Rows[0].ItemArray[1].ToString();
+                                        nTotal1 = double.Parse(dsData.Tables["P5_INCOME_PARTNERSHIP"].Rows[0].ItemArray[1].ToString());
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00201"://Partnership 2 Absorbed
+                                    if (dsData.Tables["P5_INCOME_PARTNERSHIP"].Rows.Count > 1)
+                                    {
+                                        inpElement.value = dsData.Tables["P5_INCOME_PARTNERSHIP"].Rows[1].ItemArray[0].ToString();
+                                        nTotal = nTotal + double.Parse(dsData.Tables["P5_INCOME_PARTNERSHIP"].Rows[1].ItemArray[0].ToString());
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00202"://Partnership 2 c/f
+                                    if (dsData.Tables["P5_INCOME_PARTNERSHIP"].Rows.Count > 1)
+                                    {
+                                        inpElement.value = dsData.Tables["P5_INCOME_PARTNERSHIP"].Rows[1].ItemArray[1].ToString();
+                                        nTotal1 = nTotal1 + double.Parse(dsData.Tables["P5_INCOME_PARTNERSHIP"].Rows[1].ItemArray[1].ToString());
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00203"://Partnership 3++ Absorbed
+                                    nTotal2 = 0;
+                                    if (dsData.Tables["P5_INCOME_PARTNERSHIP"].Rows.Count > 2)
+                                    {
+                                        for (int i = 0; i < dsData.Tables["P5_INCOME_PARTNERSHIP"].Rows.Count; i++)
+                                        {
+                                            nTotal2 = nTotal2 + double.Parse(dsData.Tables["P5_INCOME_PARTNERSHIP"].Rows[i].ItemArray[0].ToString());
+                                        }
+                                        nTotal = nTotal2 - nTotal;
+                                        inpElement.value = Convert.ToString(nTotal);
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00204"://Partnership 3++ c/f
+                                    nTotal2 = 0;
+                                    if (dsData.Tables["P5_INCOME_PARTNERSHIP"].Rows.Count > 2)
+                                    {
+                                        for (int i = 0; i < dsData.Tables["P5_INCOME_PARTNERSHIP"].Rows.Count; i++)
+                                        {
+                                            nTotal2 = nTotal2 + double.Parse(dsData.Tables["P5_INCOME_PARTNERSHIP"].Rows[i].ItemArray[1].ToString());
+                                        }
+                                        nTotal1 = nTotal2 - nTotal1;
+                                        inpElement.value = Convert.ToString(nTotal1);
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00205"://107A Gross
+                                    dr = dsData.Tables["P5_NON_RESIDENT"].Rows.Find("1");
+                                    if (dr != null)
+                                    {
+                                        inpElement.value = dr["NR_GROSS_TOTAL"].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00206"://107A LHDNM
+                                    dr = dsData.Tables["P5_NON_RESIDENT"].Rows.Find("1");
+                                    if (dr != null)
+                                    {
+                                        inpElement.value = Convert.ToString(double.Parse(dr["NR_WITHHOLD"].ToString()) + double.Parse(dr["NR_WITHHOLD_107A"].ToString()));
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00207"://109 Gross
+                                    dr = dsData.Tables["P5_NON_RESIDENT"].Rows.Find("2");
+                                    if (dr != null)
+                                    {
+                                        inpElement.value = dr["NR_GROSS_TOTAL"].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00208"://109 LHDNM
+                                    dr = dsData.Tables["P5_NON_RESIDENT"].Rows.Find("2");
+                                    if (dr != null)
+                                    {
+                                        inpElement.value = dr["NR_WITHHOLD"].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00209"://109A Gross
+                                    dr = dsData.Tables["P5_NON_RESIDENT"].Rows.Find("3");
+                                    if (dr != null)
+                                    {
+                                        inpElement.value = dr["NR_GROSS_TOTAL"].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00210"://109A LHDNM
+                                    dr = dsData.Tables["P5_NON_RESIDENT"].Rows.Find("3");
+                                    if (dr != null)
+                                    {
+                                        inpElement.value = dr["NR_WITHHOLD"].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00309"://109B Gross
+                                    dr = dsData.Tables["P5_NON_RESIDENT"].Rows.Find("4");
+                                    if (dr != null)
+                                    {
+                                        inpElement.value = dr["NR_GROSS_TOTAL"].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00211"://109B LHDNM
+                                    dr = dsData.Tables["P5_NON_RESIDENT"].Rows.Find("4");
+                                    if (dr != null)
+                                    {
+                                        inpElement.value = dr["NR_WITHHOLD"].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00404"://109B Gross
+                                    dr = dsData.Tables["P5_NON_RESIDENT"].Rows.Find("6");
+                                    if (dr != null)
+                                    {
+                                        inpElement.value = dr["NR_GROSS_TOTAL"].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00405"://109B LHDNM
+                                    dr = dsData.Tables["P5_NON_RESIDENT"].Rows.Find("6");
+                                    if (dr != null)
+                                    {
+                                        inpElement.value = dr["NR_WITHHOLD"].ToString();
+                                    }
+                                    break;
+                            }
+                            FireInpElementEvent(inpElement, "OnBlur");
+                            break;
+                        #endregion
+
+                        #region "Input Page 7"
+                        case "M2013Page7":
+                            switch (inpElement.name)
+                            {
+                                case "ctl00$master1$txtF00212": //Claim Code 1
+                                    if (dsData.Tables["P6_INCOME_ADJ_FURTHER"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P6_INCOME_ADJ_FURTHER"].Rows[0].ItemArray[0].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00213": //Amount 1
+                                    if (dsData.Tables["P6_INCOME_ADJ_FURTHER"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P6_INCOME_ADJ_FURTHER"].Rows[0].ItemArray[1].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00214": //Claim Code 2
+                                    if (dsData.Tables["P6_INCOME_ADJ_FURTHER"].Rows.Count > 1)
+                                    {
+                                        inpElement.value = dsData.Tables["P6_INCOME_ADJ_FURTHER"].Rows[1].ItemArray[0].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00215": //Amount 2
+                                    if (dsData.Tables["P6_INCOME_ADJ_FURTHER"].Rows.Count > 1)
+                                    {
+                                        inpElement.value = dsData.Tables["P6_INCOME_ADJ_FURTHER"].Rows[1].ItemArray[1].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00216": //Claim Code 3
+                                    if (dsData.Tables["P6_INCOME_ADJ_FURTHER"].Rows.Count > 2)
+                                    {
+                                        inpElement.value = dsData.Tables["P6_INCOME_ADJ_FURTHER"].Rows[2].ItemArray[0].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00217": //Amount 3
+                                    if (dsData.Tables["P6_INCOME_ADJ_FURTHER"].Rows.Count > 2)
+                                    {
+                                        inpElement.value = dsData.Tables["P6_INCOME_ADJ_FURTHER"].Rows[2].ItemArray[1].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00218": //Claim Code 4
+                                    if (dsData.Tables["P6_INCOME_ADJ_FURTHER"].Rows.Count > 3)
+                                    {
+                                        inpElement.value = dsData.Tables["P6_INCOME_ADJ_FURTHER"].Rows[3].ItemArray[0].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00219": //Amount 4
+                                    if (dsData.Tables["P6_INCOME_ADJ_FURTHER"].Rows.Count > 3)
+                                    {
+                                        inpElement.value = dsData.Tables["P6_INCOME_ADJ_FURTHER"].Rows[3].ItemArray[1].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00225": //Schedule 4 c/f
+                                    dr = dsData.Tables["P6_TAX_INCENTIVE_CLAIM"].Rows.Find("3");
+                                    inpElement.value = dr["TIC_CF"].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00353": //Pioneer Income Exempted
+                                    dr = dsData.Tables["P6_TAX_INCENTIVE_CLAIM"].Rows.Find("5");
+                                    inpElement.value = dr["TIC_CF"].ToString();
+                                    break;
+                            }
+                            FireInpElementEvent(inpElement, "OnBlur");
+                            break;
+                        #endregion
+
+                        #region "Input Page 8"
+                        case "M2013Page8":
+                            switch (inpElement.name)
+                            {
+                                //Profit and Loss
+                                case "ctl00$master1$txtF00399"://Nama Perniagaan
+                                    if (dsData.Tables["P7_MAIN_BUSINESS_SOURCE"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_BUSINESS_SOURCE"].Rows[0].ItemArray[0].ToString();
+                                    }
+                                    else if (dsData.Tables["P7_BUSINESS_SOURCE"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_BUSINESS_SOURCE"].Rows[0].ItemArray[0].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00227": //Business Code
+                                    if (dsData.Tables["P7_MAIN_BUSINESS_SOURCE"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_BUSINESS_SOURCE"].Rows[0].ItemArray[1].ToString();
+                                    }
+                                    else if (dsData.Tables["P7_BUSINESS_SOURCE"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_BUSINESS_SOURCE"].Rows[0].ItemArray[1].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00228": //Sales
+                                    nTotal = 0;
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[0].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[0].ToString());
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[0].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[0].ToString());
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00229": //Opening Stock
+                                    nTotal1 = 0;
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[1].ToString();
+                                        nTotal1 = double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[1].ToString());
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[1].ToString();
+                                        nTotal1 = double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[1].ToString());
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00230": //Purchase and Cost of Production
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[2].ToString();
+                                        nTotal1 = nTotal1 + double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[2].ToString());
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[2].ToString();
+                                        nTotal1 = nTotal1 + double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[2].ToString());
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00231": //Closing Stock
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[3].ToString();
+                                        nTotal1 = nTotal1 - double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[3].ToString());
+                                        nTotal1 = nTotal - nTotal1;
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[3].ToString();
+                                        nTotal1 = nTotal1 - double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[3].ToString());
+                                        nTotal1 = nTotal - nTotal1;
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00235": //Other Business
+                                    double dblOtherBusIn = 0;
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        if (dsData.Tables["P7_MAIN_INCOME_OTHERBUSINESS"].Rows.Count > 0)
+                                        {
+                                            if (!String.IsNullOrEmpty(dsData.Tables["P7_MAIN_INCOME_OTHERBUSINESS"].Rows[0].ItemArray[0].ToString()))
+                                                dblOtherBusIn = double.Parse(dsData.Tables["P7_MAIN_INCOME_OTHERBUSINESS"].Rows[0].ItemArray[0].ToString());
+                                        }
+                                        foreach (DataRow row in dsData.Tables["P7_MAIN_PNL"].Rows)
+                                        {
+                                            dblOtherBusIn = dblOtherBusIn + dal.OtherSource_GrossProfitLoss(long.Parse(row.ItemArray[0].ToString()),
+                                                        dsData.Tables["P7_MAIN_BUSINESS_SOURCE"].Rows[0].ItemArray[2].ToString());
+                                            //inpElement.value = Convert.ToString(double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[4].ToString()) + double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT_GROSS"].Rows[0].ItemArray[0].ToString()));
+                                        }
+                                        inpElement.value = dblOtherBusIn.ToString();
+                                        nTotal1 = nTotal1 + dblOtherBusIn;
+                                        //(double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[4].ToString()) + double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT_GROSS"].Rows[0].ItemArray[0].ToString()));
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        if (dsData.Tables["P7_INCOME_OTHERBUSINESS"].Rows.Count > 0)
+                                        {
+                                            if (!String.IsNullOrEmpty(dsData.Tables["P7_INCOME_OTHERBUSINESS"].Rows[0].ItemArray[0].ToString()))
+                                                dblOtherBusIn = double.Parse(dsData.Tables["P7_INCOME_OTHERBUSINESS"].Rows[0].ItemArray[0].ToString());
+                                        }
+                                        foreach (DataRow row in dsData.Tables["P7_OTHER_PNL"].Rows)
+                                        {
+                                            dblOtherBusIn = dblOtherBusIn + dal.OtherSource_GrossProfitLoss(long.Parse(row.ItemArray[0].ToString()),
+                                                        dsData.Tables["P7_BUSINESS_SOURCE"].Rows[0].ItemArray[2].ToString());
+                                            //inpElement.value = Convert.ToString(double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[4].ToString()) + double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT_GROSS"].Rows[0].ItemArray[0].ToString()));
+                                        }
+                                        inpElement.value = dblOtherBusIn.ToString();
+                                        nTotal1 = nTotal1 + dblOtherBusIn;
+                                        //(double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[4].ToString()) + double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT_GROSS"].Rows[0].ItemArray[0].ToString()));
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00236": //Dividend
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[5].ToString();
+                                        nTotal1 = nTotal1 + double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[5].ToString());
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[5].ToString();
+                                        nTotal1 = nTotal1 + double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[5].ToString());
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00237": //Interest and Discount
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[6].ToString();
+                                        nTotal1 = nTotal1 + double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[6].ToString());
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[6].ToString();
+                                        nTotal1 = nTotal1 + double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[6].ToString());
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00238": //Rent, Royalties and premiums
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = Convert.ToString(double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[7].ToString()) + double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[8].ToString()));
+                                        nTotal1 = nTotal1 + (double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[7].ToString()) + double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[8].ToString()));
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = Convert.ToString(double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[7].ToString()) + double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[8].ToString()));
+                                        nTotal1 = nTotal1 + (double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[7].ToString()) + double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[8].ToString()));
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00239": //Other Income
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = Convert.ToString(double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[9].ToString()) + double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[10].ToString()));
+                                        nTotal1 = nTotal1 + (double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[9].ToString()) + double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[10].ToString()));
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = Convert.ToString(double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[9].ToString()) + double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[10].ToString()));
+                                        nTotal1 = nTotal1 + (double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[9].ToString()) + double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[10].ToString()));
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00241": //Loan Interest
+                                    nTotal = 0;
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[11].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[11].ToString());
+                                        nTotal1 = nTotal1 - nTotal;
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[11].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[11].ToString());
+                                        nTotal1 = nTotal1 - nTotal;
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00242": //Salaries and Wages
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[12].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[12].ToString());
+                                        nTotal1 = nTotal1 - nTotal;
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[12].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[12].ToString());
+                                        nTotal1 = nTotal1 - nTotal;
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00243": //Rent and Lease
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[13].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[13].ToString());
+                                        nTotal1 = nTotal1 - nTotal;
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[13].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[13].ToString());
+                                        nTotal1 = nTotal1 - nTotal;
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00244": //Contract and Subcontrace
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[14].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[14].ToString());
+                                        nTotal1 = nTotal1 - nTotal;
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[14].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[14].ToString());
+                                        nTotal1 = nTotal1 - nTotal;
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00245": //Commissions
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[15].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[15].ToString());
+                                        nTotal1 = nTotal1 - nTotal;
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[15].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[15].ToString());
+                                        nTotal1 = nTotal1 - nTotal;
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00246": //Bad Debts
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[16].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[16].ToString());
+                                        nTotal1 = nTotal1 - nTotal;
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[16].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[16].ToString());
+                                        nTotal1 = nTotal1 - nTotal;
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00247": //Travelling and Transport
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[17].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[17].ToString());
+                                        nTotal1 = nTotal1 - nTotal;
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[17].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[17].ToString());
+                                        nTotal1 = nTotal1 - nTotal;
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00383": //Repair and Maintenance
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[18].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[18].ToString());
+                                        nTotal1 = nTotal1 - nTotal;
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[18].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[18].ToString());
+                                        nTotal1 = nTotal1 - nTotal;
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00384": //Promotion and Advertisement
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[19].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[19].ToString());
+                                        nTotal1 = nTotal1 - nTotal;
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[19].ToString();
+                                        nTotal = double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[19].ToString());
+                                        nTotal1 = nTotal1 - nTotal;
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00248": //Other Expenses
+                                    double dblTotal = 0;
+
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P7_MAIN_EXPENSES_OTHER"].Rows[0].ItemArray[0].ToString()))
+                                            dblTotal = dblTotal + double.Parse(dsData.Tables["P7_MAIN_EXPENSES_OTHER"].Rows[0].ItemArray[0].ToString());
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P7_MAIN_LOSS_NONALLOW"].Rows[0].ItemArray[0].ToString()))
+                                            dblTotal = dblTotal + double.Parse(dsData.Tables["P7_MAIN_LOSS_NONALLOW"].Rows[0].ItemArray[0].ToString());
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P7_MAIN_EXPENSES_NONALLOW"].Rows[0].ItemArray[0].ToString()))
+                                            dblTotal = dblTotal + double.Parse(dsData.Tables["P7_MAIN_EXPENSES_NONALLOW"].Rows[0].ItemArray[0].ToString());
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P7_MAIN_EXPENSES_PERSONAL"].Rows[0].ItemArray[0].ToString()))
+                                            dblTotal = dblTotal + double.Parse(dsData.Tables["P7_MAIN_EXPENSES_PERSONAL"].Rows[0].ItemArray[0].ToString());
+                                        inpElement.value = dblTotal.ToString();
+                                        //inpElement.value = Convert.ToString(double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[20].ToString()) - nTotal);
+                                        nTotal1 = nTotal1 - dblTotal;//(double.Parse(dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[20].ToString()) - nTotal);
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P7_EXPENSES_OTHER"].Rows[0].ItemArray[0].ToString()))
+                                            dblTotal = dblTotal + double.Parse(dsData.Tables["P7_EXPENSES_OTHER"].Rows[0].ItemArray[0].ToString());
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P7_LOSS_NONALLOW"].Rows[0].ItemArray[0].ToString()))
+                                            dblTotal = dblTotal + double.Parse(dsData.Tables["P7_LOSS_NONALLOW"].Rows[0].ItemArray[0].ToString());
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P7_EXPENSES_NONALLOW"].Rows[0].ItemArray[0].ToString()))
+                                            dblTotal = dblTotal + double.Parse(dsData.Tables["P7_EXPENSES_NONALLOW"].Rows[0].ItemArray[0].ToString());
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P7_EXPENSES_PERSONAL"].Rows[0].ItemArray[0].ToString()))
+                                            dblTotal = dblTotal + double.Parse(dsData.Tables["P7_EXPENSES_PERSONAL"].Rows[0].ItemArray[0].ToString());
+                                        inpElement.value = dblTotal.ToString();
+                                        //inpElement.value = Convert.ToString(double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[20].ToString()) - nTotal);
+                                        nTotal1 = nTotal1 - dblTotal;//(double.Parse(dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows[0].ItemArray[20].ToString()) - nTotal);
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00251":
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = Convert.ToString(nTotal1);
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = Convert.ToString(nTotal1);
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00252": //Non-allowable expenses
+                                    double dblNAExpenses = 0;
+                                    if (dsData.Tables["P7_MAIN_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P7_MAIN_PL_EXPENSES"].Rows[0].ItemArray[0].ToString()))
+                                        {
+                                            dblNAExpenses = dblNAExpenses + double.Parse(dsData.Tables["P7_MAIN_PL_EXPENSES"].Rows[0].ItemArray[0].ToString());
+                                        }
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P7_MAIN_PL_EXP_NONALLOWEXPEND"].Rows[0].ItemArray[0].ToString()))
+                                        {
+                                            dblNAExpenses = dblNAExpenses + double.Parse(dsData.Tables["P7_MAIN_PL_EXP_NONALLOWEXPEND"].Rows[0].ItemArray[0].ToString());
+                                        }
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P7_MAIN_PL_EXP_PERSONAL"].Rows[0].ItemArray[0].ToString()))
+                                        {
+                                            dblNAExpenses = dblNAExpenses + double.Parse(dsData.Tables["P7_MAIN_PL_EXP_PERSONAL"].Rows[0].ItemArray[0].ToString());
+                                        }
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P7_MAIN_PL_PRODUCTION_COST"].Rows[0].ItemArray[0].ToString()))
+                                        {
+                                            dblNAExpenses = dblNAExpenses + double.Parse(dsData.Tables["P7_MAIN_PL_PRODUCTION_COST"].Rows[0].ItemArray[0].ToString());
+                                        }
+                                        inpElement.value = dblNAExpenses.ToString();
+                                    }
+                                    else if (dsData.Tables["P7_PROFIT_LOSS_ACCOUNT"].Rows.Count > 0)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P7_PL_EXPENSES"].Rows[0].ItemArray[0].ToString()))
+                                        {
+                                            dblNAExpenses = dblNAExpenses + double.Parse(dsData.Tables["P7_PL_EXPENSES"].Rows[0].ItemArray[0].ToString());
+                                        }
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P7_PL_EXP_NONALLOWEXPEND"].Rows[0].ItemArray[0].ToString()))
+                                        {
+                                            dblNAExpenses = dblNAExpenses + double.Parse(dsData.Tables["P7_PL_EXP_NONALLOWEXPEND"].Rows[0].ItemArray[0].ToString());
+                                        }
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P7_PL_EXP_PERSONAL"].Rows[0].ItemArray[0].ToString()))
+                                        {
+                                            dblNAExpenses = dblNAExpenses + double.Parse(dsData.Tables["P7_PL_EXP_PERSONAL"].Rows[0].ItemArray[0].ToString());
+                                        }
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P7_PL_PRODUCTION_COST"].Rows[0].ItemArray[0].ToString()))
+                                        {
+                                            dblNAExpenses = dblNAExpenses + double.Parse(dsData.Tables["P7_PL_PRODUCTION_COST"].Rows[0].ItemArray[0].ToString());
+                                        }
+                                        inpElement.value = dblNAExpenses.ToString();
+                                    }
+                                    break;
+                                //Balance Sheet
+                                case "ctl00$master1$txtF00253"://Land and Building
+                                    if (dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[0].ToString();
+                                    }
+                                    else if (dsData.Tables["P7_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[0].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00254"://Plant and Machinery
+                                    if (dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[1].ToString();
+                                    }
+                                    else if (dsData.Tables["P7_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[1].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00255"://Motor Vehicle
+                                    if (dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[2].ToString();
+                                    }
+                                    else if (dsData.Tables["P7_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[2].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00256"://Other Fixed Assets
+                                    if (dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[3].ToString();
+                                    }
+                                    else if (dsData.Tables["P7_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[3].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00258"://Investments
+                                    if (dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[4].ToString();
+                                    }
+                                    else if (dsData.Tables["P7_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[4].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00259"://Stock
+                                    if (dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[5].ToString();
+                                    }
+                                    else if (dsData.Tables["P7_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[5].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00260"://Trade Dubtors
+                                    if (dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[6].ToString();
+                                    }
+                                    else if (dsData.Tables["P7_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[6].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00261"://Sundry Debtors
+                                    if (dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[7].ToString();
+
+                                    }
+                                    else if (dsData.Tables["P7_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[7].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00262"://Cash in hand
+                                    if (dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[8].ToString();
+                                    }
+                                    else if (dsData.Tables["P7_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[8].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00263"://Cash at Bank
+                                    if (dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[9].ToString();
+                                    }
+                                    else if (dsData.Tables["P7_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[9].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00264"://Other current assets
+                                    if (dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[10].ToString();
+                                    }
+                                    else if (dsData.Tables["P7_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[10].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00267"://Loans
+                                    if (dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[11].ToString();
+                                    }
+                                    else if (dsData.Tables["P7_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[11].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00268"://Trade creditors
+                                    if (dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[12].ToString();
+                                    }
+                                    else if (dsData.Tables["P7_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[12].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00269"://Sundry creditors
+                                    if (dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = (double.Parse(dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[13].ToString()) +
+                                                        double.Parse(dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[20].ToString()) +
+                                                        double.Parse(dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[21].ToString())).ToString();
+                                    }
+                                    else if (dsData.Tables["P7_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = (double.Parse(dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[13].ToString()) +
+                                                          double.Parse(dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[20].ToString()) +
+                                                          double.Parse(dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[21].ToString())).ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00271"://Capital Account
+                                    if (dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[14].ToString();
+                                    }
+                                    else if (dsData.Tables["P7_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[14].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00272"://Current a/c b/f
+                                    if (dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[15].ToString();
+                                    }
+                                    else if (dsData.Tables["P7_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[15].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00274"://Current Year Profit/ Loss
+                                    if (dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[16].ToString();
+                                    }
+                                    else if (dsData.Tables["P7_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[16].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00275"://Net advanced/ drawng
+                                    if (dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = Convert.ToString(double.Parse(dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[17].ToString()) - double.Parse(dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[18].ToString()));
+                                    }
+                                    else if (dsData.Tables["P7_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = Convert.ToString(double.Parse(dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[17].ToString()) - double.Parse(dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[18].ToString()));
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00276"://Current account c/f
+                                    if (dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_MAIN_BALANCE_SHEET"].Rows[0].ItemArray[19].ToString();
+                                    }
+                                    else if (dsData.Tables["P7_BALANCE_SHEET"].Rows.Count > 0)
+                                    {
+                                        inpElement.value = dsData.Tables["P7_BALANCE_SHEET"].Rows[0].ItemArray[19].ToString();
+                                    }
+                                    break;
+                            }
+                            FireInpElementEvent(inpElement, "OnBlur");
+                            break;
+                        #endregion
+
+                        #region "Input Page 9"
+                        case "M2013Page9":
+                            switch (inpElement.name)
+                            {
+                                case "ctl00$master1$txtF00183":
+                                    inpElement.value = dsData.Tables["P8_TAXADM_PROFILE"].Rows[0].ItemArray[0].ToString();
+                                    break;
+                                case "ctl00$master1$txtF00185":
+                                    if (!String.IsNullOrEmpty(dsData.Tables["P8_TAXADM_PROFILE"].Rows[0].ItemArray[1].ToString()))
+                                    {
+                                        inpElement.value = dsData.Tables["P8_TAXADM_PROFILE"].Rows[0].ItemArray[1].ToString() +
+                                            dsData.Tables["P8_TAXADM_PROFILE"].Rows[0].ItemArray[2].ToString() +
+                                            dsData.Tables["P8_TAXADM_PROFILE"].Rows[0].ItemArray[3].ToString();
+                                    }
+                                    else if (!String.IsNullOrEmpty(dsData.Tables["P8_TAXADM_PROFILE"].Rows[0].ItemArray[4].ToString()))
+                                    {
+                                        inpElement.value = dsData.Tables["P8_TAXADM_PROFILE"].Rows[0].ItemArray[4].ToString();
+                                    }
+                                    else if (!String.IsNullOrEmpty(dsData.Tables["P8_TAXADM_PROFILE"].Rows[0].ItemArray[5].ToString()))
+                                    {
+                                        inpElement.value = dsData.Tables["P8_TAXADM_PROFILE"].Rows[0].ItemArray[5].ToString();
+                                    }
+                                    else if (!String.IsNullOrEmpty(dsData.Tables["P8_TAXADM_PROFILE"].Rows[0].ItemArray[6].ToString()))
+                                    {
+                                        inpElement.value = dsData.Tables["P8_TAXADM_PROFILE"].Rows[0].ItemArray[6].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$txtF00290":
+                                    inpElement.value = dsData.Tables["P8_TAXA_PROFILE"].Rows[0].ItemArray[0].ToString();
+                                    break;
+                            }
+                            break;
+                        #endregion
+                    }
+                }
+
+                foreach (mshtml.HTMLSelectElement selElement in htmlDoc.getElementsByTagName("select"))
+                {
+                    switch (strPageIndex)
+                    {
+                        #region "Select Page 1"
+                        case "M2013Page1":
+                            switch (selElement.name)
+                            {
+                                case "ctl00$master1$ddlF00305_hari"://hari
+                                    if (!String.IsNullOrEmpty(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[1].ToString()))
+                                    {
+                                        selElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[1].ToString().Substring(0, 2);
+                                    }
+                                    else
+                                    {
+                                        selElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00305_bulan"://bulan
+                                    if (!String.IsNullOrEmpty(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[1].ToString()))
+                                    {
+                                        selElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[1].ToString().Substring(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[1].ToString().IndexOf('/') + 1, 2);
+                                    }
+                                    else
+                                    {
+                                        selElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00377_hari"://hari
+                                    if (!String.IsNullOrEmpty(dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[0].ToString()))
+                                    {
+                                        selElement.value = dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[0].ToString().Substring(0, 2);
+                                    }
+                                    else
+                                    {
+                                        selElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00377_bulan"://bulan
+                                    if (!String.IsNullOrEmpty(dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[0].ToString()))
+                                    {
+                                        selElement.value = dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[0].ToString().Substring(dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[0].ToString().IndexOf('/') + 1, 2);
+                                    }
+                                    else
+                                    {
+                                        selElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00014_Hari"://hari
+                                    if (dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[5].ToString() == "2")
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[6].ToString()))
+                                        {
+                                            selElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[6].ToString().Substring(0, 2);
+                                        }
+                                        else
+                                        {
+                                            selElement.value = "";
+                                        }
+                                    }
+                                    else if ((dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[5].ToString() == "3") || (dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[5].ToString() == "4"))
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[7].ToString()))
+                                        {
+                                            selElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[7].ToString().Substring(0, 2);
+                                        }
+                                        else
+                                        {
+                                            selElement.value = "";
+                                        }
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00014_Bulan"://bulan
+                                    if (dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[5].ToString() == "2")
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[6].ToString()))
+                                        {
+                                            selElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[6].ToString().Substring(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[6].ToString().IndexOf('/') + 1, 2);
+                                        }
+                                        else
+                                        {
+                                            selElement.value = "";
+                                        }
+                                    }
+                                    else if ((dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[5].ToString() == "3") || (dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[5].ToString() == "4"))
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[7].ToString()))
+                                        {
+                                            selElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[7].ToString().Substring(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[7].ToString().IndexOf('/') + 1, 2);
+                                        }
+                                        else
+                                        {
+                                            selElement.value = "";
+                                        }
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00010"://Citizan
+                                    selElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[2].ToString();
+                                    break;
+                                case "ctl00$master1$ddlF00011"://Country of Residence
+                                    selElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[3].ToString();
+                                    break;
+                                case "ctl00$master1$ddlF00012"://Sex
+                                    selElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[4].ToString();
+                                    break;
+                                case "ctl00$master1$ddlF00013"://Status
+                                    selElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[5].ToString();
+                                    break;
+                                case "ctl00$master1$ddlF00016"://Type of Assessment
+                                    if (dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[8].ToString() == "1")
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[36].ToString()))
+                                        {
+                                            if (dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[36].ToString() == "1")
+                                            { selElement.value = "1"; }
+                                            else
+                                            { selElement.value = "2"; }
+                                        }
+                                    }
+                                    else if (dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[8].ToString() == "2")
+                                    {
+                                        selElement.value = "3";
+                                    }
+                                    else if (dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[8].ToString() == "3")
+                                    {
+                                        //weihong
+                                        if (dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[5].ToString() == "1")
+                                        {
+                                            selElement.value = "4";
+                                        }
+                                        else
+                                        {
+                                            selElement.value = "5";
+                                        }
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00018"://Public Rulings weihong
+                                    if (dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[9].ToString() == "1")
+                                    { selElement.value = "1"; }
+                                    else
+                                    { selElement.value = "2"; }
+                                    break;
+
+                                case "ctl00$master1$ddlF00378"://Record-keeping
+                                    selElement.value = strRecKept == "True" ? selElement.value = "1" : selElement.value = "2";
+                                    break;
+                                case "ctl00$master1$ddlF00400"://Carry back losses
+                                    if (dsData.Tables["P1_ADJUSTED_LOSS"].Rows.Count > 0)
+                                    {
+                                        if (dsData.Tables["P1_ADJUSTED_LOSS"].Rows[0].ItemArray[0] != null)
+                                        {
+                                            if (!String.IsNullOrEmpty(dsData.Tables["P1_ADJUSTED_LOSS"].Rows[0].ItemArray[0].ToString()))
+                                            {
+                                                if (Double.Parse(dsData.Tables["P1_ADJUSTED_LOSS"].Rows[0].ItemArray[0].ToString()) > 0)
+                                                {
+                                                    selElement.value = "1";
+                                                }
+                                                else
+                                                {
+                                                    selElement.value = "2";
+                                                }
+                                            }
+                                            else
+                                            {
+                                                selElement.value = "2";
+                                            }
+                                        }
+                                        else
+                                        {
+                                            selElement.value = "2";
+                                        }
+                                    }
+                                    else
+                                    {
+                                        selElement.value = "2";
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00024"://Correspondence Add - State
+                                    selElement.value = SelectState(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[15].ToString());
+                                    break;
+                                case "ctl00$master1$ddlF00030"://Permanent Add - State
+                                    selElement.value = SelectState(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[21].ToString());
+                                    break;
+                                case "ctl00$master1$ddlF00036"://Business Premise Add - State
+                                    selElement.value = SelectState(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[27].ToString());
+                                    break;
+
+                                case "ctl00$master1$ddlF00408"://Knowledge worker approval (weihong)
+                                    if (!String.IsNullOrEmpty(dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[1].ToString()))
+                                    {
+                                        selElement.value = "1";
+                                    }
+                                    else
+                                    {
+                                        selElement.value = "2";
+                                    }
+                                    FireSelElementEvent(selElement, "OnClick");
+                                    break;
+
+                                case "ctl00$master1$ddlF00409_hari"://Date Knowledge worker approval - HARI (weihong)
+                                    if (!String.IsNullOrEmpty(dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[1].ToString()))
+                                    {
+                                        selElement.value = dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[1].ToString().Substring(0, 2);
+                                    }
+                                    else
+                                    {
+                                        selElement.value = "";
+                                    }
+                                    break;
+
+                                case "ctl00$master1$ddlF00409_bln"://Date Knowledge worker approval - BULAN (weihong)
+                                    if (!String.IsNullOrEmpty(dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[1].ToString()))
+                                    {
+                                        selElement.value = dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[1].ToString().Substring(dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[0].ToString().IndexOf('/') + 1, 2);
+                                    }
+                                    else
+                                    {
+                                        selElement.value = "";
+                                    }
+                                    break;
+
+                                case "ctl00$master1$ddlF00409_thn"://Date Knowledge worker approval - TAHUN (weihong)
+                                    if (!String.IsNullOrEmpty(dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[1].ToString()))
+                                    {
+                                        selElement.value = dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[1].ToString().Substring(dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[0].ToString().LastIndexOf('/') + 1, 4);
+                                    }
+                                    else
+                                    {
+                                        selElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00044"://Bank Name weihong ctl00$master1$ddlF00044
+                                    if (dsData.Tables["P1_TAX_PROFILE"].Rows.Count > 0)
+                                    {
+                                        selElement.value = SelectBank(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[31].ToString());
+                                    }
+                                    break;
+
+                                //case "ctl00$master1$txtF00044"://Bank Name
+                                //    inpElement.value = SelectBank(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[31].ToString());
+                                //    break;
+
+                            }
+                            FireSelElementEvent(selElement, "OnChange");
+                            break;
+                        #endregion
+
+                        #region "Select Page 2"
+                        case "M2013Page2":
+                            switch (selElement.name)
+                            {
+                                case "ctl00$master1$ddlF00054"://Ref Prefix
+                                    selElement.value = dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[1].ToString();
+                                    break;
+                                case "ctl00$master1$ddlJPengenalan_isteri"://Identity Type
+                                    if (dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[5].ToString() + dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[6].ToString() + dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[7].ToString() != "")
+                                    {
+                                        selElement.value = "1";
+                                    }
+                                    else if (dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[8].ToString() != "")
+                                    {
+                                        selElement.value = "4";
+                                    }
+                                    else if (dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[9].ToString() != "")
+                                    {
+                                        selElement.value = "3";
+                                    }
+                                    else if (dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[10].ToString() != "")
+                                    {
+                                        selElement.value = "2";
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00306_hari"://Expire Date of Current Passport - Hari
+                                    if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[11].ToString()))
+                                    {
+                                        selElement.value = dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[11].ToString().Substring(0, 2);
+                                    }
+                                    else
+                                    {
+                                        selElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00306_bulan"://Expire Date of Current Passport - Bulan
+                                    if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[11].ToString()))
+                                    {
+                                        selElement.value = dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[11].ToString().Substring(dsData.Tables["P2_TAX_PROFILE"].Rows[0].ItemArray[11].ToString().IndexOf('/') + 1, 2);
+                                    }
+                                    else
+                                    {
+                                        selElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00379_hari"://Date of Birth - Hari
+                                    if (!String.IsNullOrEmpty(dsData.Tables["P2_TAXP_PROFILE2"].Rows[0].ItemArray[1].ToString()))
+                                    {
+                                        selElement.value = dsData.Tables["P2_TAXP_PROFILE2"].Rows[0].ItemArray[1].ToString().Substring(0, 2);
+                                    }
+                                    else
+                                    {
+                                        selElement.value = "";
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00379_bulan"://Date of Birth - Bulan
+                                    if (!String.IsNullOrEmpty(dsData.Tables["P2_TAXP_PROFILE2"].Rows[0].ItemArray[1].ToString()))
+                                    {
+                                        selElement.value = dsData.Tables["P2_TAXP_PROFILE2"].Rows[0].ItemArray[1].ToString().Substring(dsData.Tables["P2_TAXP_PROFILE2"].Rows[0].ItemArray[1].ToString().IndexOf('/') + 1, 2);
+                                    }
+                                    else
+                                    {
+                                        selElement.value = "";
+                                    }
+                                    break;
+
+                                //lyeyc
+                                //2nd wife
+                                case "ctl00$master1$ddlF00054_1"://Ref Prefix
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 0)
+                                    {
+                                        selElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[1].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlJPengenalan_isteri_1"://Identity Type
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 0)
+                                    {
+                                        if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[5].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[6].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[7].ToString() != "")
+                                        {
+                                            selElement.value = "1";
+                                        }
+                                        else if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[8].ToString() != "")
+                                        {
+                                            selElement.value = "4";
+                                        }
+                                        else if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[9].ToString() != "")
+                                        {
+                                            selElement.value = "3";
+                                        }
+                                        else if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[10].ToString() != "")
+                                        {
+                                            selElement.value = "2";
+                                        }
+                                    }
+                                    break;
+
+                                case "ctl00$master1$ddlF00306_1_hari"://Expire Date of Current Passport - Hari
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 0)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[12].ToString()))
+                                        {
+                                            selElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[12].ToString().Substring(0, 2);
+                                        }
+                                        else
+                                        {
+                                            selElement.value = "";
+                                        }
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00306_1_bulan"://Expire Date of Current Passport - Bulan
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 0)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[12].ToString()))
+                                        {
+                                            selElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[12].ToString().Substring(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[12].ToString().IndexOf('/') + 1, 2);
+                                        }
+                                        else
+                                        {
+                                            selElement.value = "";
+                                        }
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00379_1_hari"://Date of Birth - Hari
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 0)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[13].ToString()))
+                                        {
+                                            selElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[13].ToString().Substring(0, 2);
+                                        }
+                                        else
+                                        {
+                                            selElement.value = "";
+                                        }
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00379_1_bulan"://Date of Birth - Bulan
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 0)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[13].ToString()))
+                                        {
+                                            selElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[13].ToString().Substring(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[0].ItemArray[13].ToString().IndexOf('/') + 1, 2);
+                                        }
+                                        else
+                                        {
+                                            selElement.value = "";
+                                        }
+                                    }
+                                    break;
+
+                                //3rd wife
+                                case "ctl00$master1$ddlF00054_2"://Ref Prefix
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 1)
+                                    {
+                                        selElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[1].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlJPengenalan_isteri_2"://Identity Type
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 1)
+                                    {
+                                        if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[5].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[6].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[7].ToString() != "")
+                                        {
+                                            selElement.value = "1";
+                                        }
+                                        else if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[8].ToString() != "")
+                                        {
+                                            selElement.value = "4";
+                                        }
+                                        else if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[9].ToString() != "")
+                                        {
+                                            selElement.value = "3";
+                                        }
+                                        else if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[10].ToString() != "")
+                                        {
+                                            selElement.value = "2";
+                                        }
+                                    }
+                                    break;
+
+                                case "ctl00$master1$ddlF00306_2_hari"://Expire Date of Current Passport - Hari
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 1)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[12].ToString()))
+                                        {
+                                            selElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[12].ToString().Substring(0, 2);
+                                        }
+                                        else
+                                        {
+                                            selElement.value = "";
+                                        }
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00306_2_bulan"://Expire Date of Current Passport - Bulan
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 1)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[12].ToString()))
+                                        {
+                                            selElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[12].ToString().Substring(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[12].ToString().IndexOf('/') + 1, 2);
+                                        }
+                                        else
+                                        {
+                                            selElement.value = "";
+                                        }
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00379_2_hari"://Date of Birth - Hari
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 1)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[13].ToString()))
+                                        {
+                                            selElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[13].ToString().Substring(0, 2);
+                                        }
+                                        else
+                                        {
+                                            selElement.value = "";
+                                        }
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00379_2_bulan"://Date of Birth - Bulan
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 1)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[13].ToString()))
+                                        {
+                                            selElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[13].ToString().Substring(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[1].ItemArray[13].ToString().IndexOf('/') + 1, 2);
+                                        }
+                                        else
+                                        {
+                                            selElement.value = "";
+                                        }
+                                    }
+                                    break;
+
+                                //4th wife
+                                case "ctl00$master1$ddlF00054_3"://Ref Prefix
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 2)
+                                    {
+                                        selElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[1].ToString();
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlJPengenalan_isteri_3"://Identity Type
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 2)
+                                    {
+                                        if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[5].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[6].ToString() + dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[7].ToString() != "")
+                                        {
+                                            selElement.value = "1";
+                                        }
+                                        else if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[8].ToString() != "")
+                                        {
+                                            selElement.value = "4";
+                                        }
+                                        else if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[9].ToString() != "")
+                                        {
+                                            selElement.value = "3";
+                                        }
+                                        else if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[10].ToString() != "")
+                                        {
+                                            selElement.value = "2";
+                                        }
+                                    }
+                                    break;
+
+                                case "ctl00$master1$ddlF00306_3_hari"://Expire Date of Current Passport - Hari
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 2)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[12].ToString()))
+                                        {
+                                            selElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[12].ToString().Substring(0, 2);
+                                        }
+                                        else
+                                        {
+                                            selElement.value = "";
+                                        }
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00306_3_bulan"://Expire Date of Current Passport - Bulan
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 2)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[12].ToString()))
+                                        {
+                                            selElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[12].ToString().Substring(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[12].ToString().IndexOf('/') + 1, 2);
+                                        }
+                                        else
+                                        {
+                                            selElement.value = "";
+                                        }
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00379_3_hari"://Date of Birth - Hari
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 2)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[13].ToString()))
+                                        {
+                                            selElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[13].ToString().Substring(0, 2);
+                                        }
+                                        else
+                                        {
+                                            selElement.value = "";
+                                        }
+                                    }
+                                    break;
+                                case "ctl00$master1$ddlF00379_3_bulan"://Date of Birth - Bulan
+                                    if (dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows.Count > 2)
+                                    {
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[13].ToString()))
+                                        {
+                                            selElement.value = dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[13].ToString().Substring(dsData.Tables["P2_TAX_PROFILE_HW_OTHERS"].Rows[2].ItemArray[13].ToString().IndexOf('/') + 1, 2);
+                                        }
+                                        else
+                                        {
+                                            selElement.value = "";
+                                        }
+                                    }
+                                    break;
+                                //lyeyc (end)
+                            }
+                            break;
+                        #endregion
+
+                        #region "Select Page 3"
+                        case "M2013Page3":
+                            switch (selElement.name)
+                            {
+                                case "ctl00$master1$ddlF00380"://Claim Exemption
+                                    if (dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[2].ToString() == "1")
+                                    {
+                                        selElement.value = "1";
+                                    }
+                                    else if (dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[2].ToString() == "2")
+                                    {
+                                        selElement.value = "2";
+                                    }
+                                    else
+                                    {
+                                        selElement.value = "";
+                                    }
+                                    FireSelElementEvent(selElement, "OnChange");
+                                    break;
+                                case "ctl00$master1$ddlF00381"://Claim Exemption
+                                    selElement.value = dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[3].ToString();
+                                    break;
+                                //case "ctl00$master1$ddlF00011a"://Claim Exemption under 
+                                //    selElement.value = dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[3].ToString();
+                                //    break;
+                                case "ctl00$master1$ddlF00355"://Type of income transfer from husband/wife
+                                    bool boolHaveBusiness = false;
+                                    for (int i = 0; i < dsData.Tables["P3_TAX_PROFILE_OTHER"].Rows.Count; i++)
+                                    {
+                                        if (dsData.Tables["P3_TAX_PROFILE_OTHER"].Rows[i].ItemArray[11].ToString() == "1")
+                                        {
+                                            boolHaveBusiness = true;
+                                            break;
+                                        }
+                                    }
+                                    if (dsData.Tables["P3_TAX_PROFILE"].Rows[0].ItemArray[11].ToString() == "1" || boolHaveBusiness == true)
+                                    {
+                                        selElement.value = "1";//Ada pendapatan perniagaan (With business income)
+                                    }
+                                    else //if (dsData.Tables["P3_TAX_PROFILE"].Rows[0].ItemArray[11].ToString() == "2")
+                                    {
+                                        selElement.value = "2";//Tiada punca pendapatan perniagaan (Without business income)
+                                    }
+                                    break;
+                                /*
+                                     if (!String.IsNullOrEmpty(dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[19].ToString()))
+                                     {
+                                         selElement.value = dsData.Tables["P3_TAX_COMPUTATION"].Rows[0].ItemArray[19].ToString();
+                                     }
+                                     else
+                                     {
+                                         selElement.value = "";
+                                     }
+                                     break;
+                                 * */
+                            }
+                            break;
+                        #endregion
+
+                        #region "Select Page 9"
+                        case "M2013Page9":
+                            switch (selElement.name)
+                            {
+                                case "ctl00$master1$ddlJPengenalan_mati":
+                                    if (!String.IsNullOrEmpty(dsData.Tables["P8_TAXADM_PROFILE"].Rows[0].ItemArray[1].ToString()))
+                                    {
+                                        //selElement.value = "NEWIC";
+                                        selElement.value = "1"; //weihong
+
+                                    }
+                                    else if (!String.IsNullOrEmpty(dsData.Tables["P8_TAXADM_PROFILE"].Rows[0].ItemArray[4].ToString()))
+                                    {
+                                        //selElement.value = "POLICE";
+                                        selElement.value = "4"; //weihong
+                                    }
+                                    else if (!String.IsNullOrEmpty(dsData.Tables["P8_TAXADM_PROFILE"].Rows[0].ItemArray[5].ToString()))
+                                    {
+                                        //selElement.value = "ARMY";
+                                        selElement.value = "3"; //weihong
+                                    }
+                                    else if (!String.IsNullOrEmpty(dsData.Tables["P8_TAXADM_PROFILE"].Rows[0].ItemArray[6].ToString()))
+                                    {
+                                        //selElement.value = "PASSPORT";
+                                        selElement.value = "2"; //weihong
+                                    }
+                                    FireSelElementEvent(selElement, "OnChange");
+                                    break;
+                            }
+                            break;
+                        #endregion
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+        }
+      
         private void ProcessFormM2016(mshtml.HTMLDocument htmlDoc, String strPageIndex)
         {
             try
@@ -10730,10 +13305,10 @@ namespace IEToolBar
                                 case "ctl00$ContentPlaceHolder1$txtF00305_Thn":
                                     if (dsData.Tables["P1_TAX_PROFILE"].Rows.Count > 0)
                                     {
-                                        if (!String.IsNullOrEmpty(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[1].ToString()))
+                                        if (!String.IsNullOrEmpty(dsData.Tables["P1_TAX_PROFILE"].Rows[0]["TP_PASSWPORTDUEDATE"].ToString()))
                                         {
                                         //    MessageBox.Show(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[0].ToString());
-                                            DateTime dtBirthDate = Convert.ToDateTime(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[1].ToString());
+                                            DateTime dtBirthDate = Convert.ToDateTime(dsData.Tables["P1_TAX_PROFILE"].Rows[0]["TP_PASSWPORTDUEDATE"].ToString());
                                             inpElement.value = dtBirthDate.ToString("yyyy");
                                             // inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[1].ToString().Substring(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[1].ToString().LastIndexOf('/') + 1, 4);
                                         }
@@ -10746,9 +13321,9 @@ namespace IEToolBar
                                     break;
                                 case "ctl00$ContentPlaceHolder1$txtF00377_Thn":
                                     //MessageBox.Show(dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[0].ToString());
-                                    if (!String.IsNullOrEmpty(dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[0].ToString()))
+                                    if (!String.IsNullOrEmpty(dsData.Tables["P1_TAXP_PROFILE2"].Rows[0]["TP_DOB"].ToString()))
                                     {
-                                        DateTime dtBirthDate = Convert.ToDateTime(dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[0].ToString());
+                                        DateTime dtBirthDate = Convert.ToDateTime(dsData.Tables["P1_TAXP_PROFILE2"].Rows[0]["TP_DOB"].ToString());
                                         inpElement.value = dtBirthDate.ToString("yyyy");
                                        // inpElement.value = dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[0].ToString().Substring(dsData.Tables["P1_TAXP_PROFILE2"].Rows[0].ItemArray[0].ToString().LastIndexOf('/') + 1, 4);
                                     }
@@ -10836,6 +13411,9 @@ namespace IEToolBar
                                     break;
                                 case "ctl00$ContentPlaceHolder1$txtF00041"://Tel
                                     inpElement.value = (dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[28].ToString() + "-" + dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[29].ToString());
+                                    break;
+                                case "ctl00$ContentPlaceHolder1$txtF00444"://Tel
+                                    inpElement.value = (dsData.Tables["P1_TAX_PROFILE"].Rows[0]["TP_MOBILE1"].ToString() + "-" + dsData.Tables["P1_TAX_PROFILE"].Rows[0]["TP_MOBILE2"].ToString());
                                     break;
                                 case "ctl00$ContentPlaceHolder1$txtF00043"://email
                                     inpElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0]["TP_EMAIL"].ToString();
@@ -12830,21 +15408,37 @@ namespace IEToolBar
                     {
                         #region "Select Page 1"
                         case "M2016Page1":
+                           
                             ErrrorLog = selElement.name;
                             switch (selElement.name)
                             {
-                                case "ctl00$ContentPlaceHolder1$ddlF00305_Hari"://hari
-                                    if (!String.IsNullOrEmpty(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[1].ToString()))
+                                case "ctl00$ContentPlaceHolder1$ddlF00305_Hari":
+                                  
+                                    if (dsData.Tables["P1_TAX_PROFILE"].Rows.Count > 0)
                                     {
-                                        DateTime dtBirthDate = Convert.ToDateTime(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[1].ToString());
+                                        DateTime dtBirthDate = Convert.ToDateTime(dsData.Tables["P1_TAX_PROFILE"].Rows[0]["TP_PASSWPORTDUEDATE"].ToString());
                                         selElement.value = dtBirthDate.ToString("dd");
-                                     //   selElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[1].ToString().Substring(0, 2);
+                                 
                                     }
                                     else
                                     {
                                         selElement.value = "";
                                     }
                                     break;
+                                
+                                //case "ctl00$ContentPlaceHolder1$ddlF00305_Hari"://hari
+                                //    if (!String.IsNullOrEmpty(dsData.Tables["P1_TAX_PROFILE"].Rows[0]["TP_PASSWPORTDUEDATE"].ToString()))
+                                //    {
+                                //        DateTime dtBirthDate = Convert.ToDateTime(dsData.Tables["P1_TAX_PROFILE"].Rows[0]["TP_PASSWPORTDUEDATE"].ToString());
+                                //        selElement.value = dtBirthDate.ToString("dd");
+                                //     //   selElement.value = dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[1].ToString().Substring(0, 2);
+                                //    }
+                                //    else
+                                //    {
+                                //        selElement.value = "";
+                                //    }
+                                //    break;
+
                                 case "ctl00$ContentPlaceHolder1$ddlF00305_Bulan"://bulan
                                     if (!String.IsNullOrEmpty(dsData.Tables["P1_TAX_PROFILE"].Rows[0].ItemArray[1].ToString()))
                                     {

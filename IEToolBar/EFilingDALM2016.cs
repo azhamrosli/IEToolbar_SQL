@@ -34,15 +34,16 @@ namespace IEToolBar
                 switch (strPage)
                 {
                     case "M2016Page1":
-                        ErrorLog = "P1_TAX_PROFILE";
-                        strQuery = "SELECT TP_PASSPORT_NO, convert(nvarchar(20), TP_PASSWPORTDUEDATE, 103), TP_RESIDENCE, TP_COUNTRY, TP_GENDER, " +
+                        ErrorLog = "P1_TAX_PROFILE"; 
+                        
+                        strQuery = "SELECT TP_PASSPORT_NO, TP_PASSWPORTDUEDATE, TP_RESIDENCE, TP_COUNTRY, TP_GENDER, " +
                         "TP_STATUS, convert(nvarchar(20), TP_DATE_MARRIAGE, 103) as TP_DATE_MARRIAGE_DATA, convert(nvarchar(20), TP_DATE_DIVORCE, 103) as TP_DATE_DIVORCE_DATA, TP_TYPE_ASSESSMENT, TP_KUP, " +
                         "TP_CURR_ADD_LINE1, TP_CURR_ADD_LINE2, TP_CURR_ADD_LINE3, TP_CURR_POSTCODE, TP_CURR_CITY, " +
                         "TP_CURR_STATE, TP_REG_ADD_LINE1, TP_REG_ADD_LINE2, TP_REG_ADD_LINE3, TP_REG_POSTCODE, " +
                         "TP_REG_CITY, TP_REG_STATE, TP_COM_ADD_LINE1, TP_COM_ADD_LINE2, TP_COM_ADD_LINE3, " +
                         "TP_COM_POSTCODE, TP_COM_CITY, TP_COM_STATE, TP_TEL1, TP_TEL2, " +
                         "TP_EMAIL, TP_BANK, TP_BANK_ACC, TP_EMPLOYERNAME, TP_EMPLOYER_NO2, " +
-                        "TP_EMPLOYER_NO3, TP_ASSESSMENTON " +
+                        "TP_EMPLOYER_NO3, TP_ASSESSMENTON, TP_MOBILE1, TP_MOBILE2 " +
                         "FROM TAXP_PROFILE WHERE TP_5=?";
                         cmdOdbc = new OdbcCommand(strQuery, connOdbc);
                         cmdOdbc.Parameters.Add(new OdbcParameter("@taxpayer", strTaxPayer.ToString()));
@@ -55,7 +56,7 @@ namespace IEToolBar
 
                         ErrorLog = "P1_TAXP_PROFILE2";
                         //weihong FORMAT(TP_WORKER_APPROVEDATE)
-                        strQuery = "SELECT convert(nvarchar(20), TP_DOB, 103), convert(nvarchar(20), TP_WORKER_APPROVEDATE, 103), TP_COM_ADD_STATUS ,[TP_BWA],[TP_LHDNM_BRANCH],[TP_BUSINESS_ECOMMERCE],[TP_JKDM],[TP_DISPOSAL1976],[TP_LDMN_DISPOSAL],[TP_GST],[TP_TEL_KOD],[TP_MOBILE_KOD],[TP_FAX_KOD],[TP_MOTHER_IC],[TP_FATHER_IC] " +
+                        strQuery = "SELECT TP_DOB, convert(nvarchar(20), TP_WORKER_APPROVEDATE, 103), TP_COM_ADD_STATUS ,[TP_BWA],[TP_LHDNM_BRANCH],[TP_BUSINESS_ECOMMERCE],[TP_JKDM],[TP_DISPOSAL1976],[TP_LDMN_DISPOSAL],[TP_GST],[TP_TEL_KOD],[TP_MOBILE_KOD],[TP_FAX_KOD],[TP_MOTHER_IC],[TP_FATHER_IC] " +
                         "FROM TAXP_PROFILE2 WHERE TP_REF_NO=?";
                         cmdOdbc = new OdbcCommand(strQuery, connOdbc);
                         cmdOdbc.Parameters.Add(new OdbcParameter("@taxpayer", strTaxPayer.ToString()));
