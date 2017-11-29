@@ -38745,7 +38745,7 @@ namespace IEToolBar
                                             {
                                                 calc = ((sh_share * sh_par_value) / bs_capital) * 100;
                                             }
-                                            inpElement.value = Math.Round(calc).ToString();
+                                            inpElement.value = Math.Round(calc,4).ToString("0.00");
                                         }
                                         else
                                         {
@@ -38779,7 +38779,7 @@ namespace IEToolBar
                                             {
                                                 calc = ((sh_share * sh_par_value) / bs_capital) * 100;
                                             }
-                                            inpElement.value = Math.Round(calc).ToString();
+                                            inpElement.value = Math.Round(calc,4).ToString("0.00");
                                         }
                                         else
                                         {
@@ -38813,7 +38813,7 @@ namespace IEToolBar
                                             {
                                                 calc = ((sh_share * sh_par_value) / bs_capital) * 100;
                                             }
-                                            inpElement.value = Math.Round(calc).ToString();
+                                            inpElement.value = Math.Round(calc,4).ToString("0.00");
                                         }
                                         else
                                         {
@@ -38847,7 +38847,7 @@ namespace IEToolBar
                                             {
                                                 calc = ((sh_share * sh_par_value) / bs_capital) * 100;
                                             }
-                                            inpElement.value = Math.Round(calc).ToString();
+                                            inpElement.value = Math.Round(calc,4).ToString("0.00");
                                         }
                                         else
                                         {
@@ -38881,7 +38881,7 @@ namespace IEToolBar
                                             {
                                                 calc = ((sh_share * sh_par_value) / bs_capital) * 100;
                                             }
-                                            inpElement.value = Math.Round(calc).ToString();
+                                            inpElement.value = Math.Round(calc,4).ToString("0.00");
                                         }
                                         else
                                         {
@@ -43494,6 +43494,7 @@ namespace IEToolBar
                                 case "ctl00$ContentPlaceHolder1$ddlTempohMula_thn":
                                     dtDateTmp = Convert.ToDateTime(dsData.Tables["P1_SELECT_TAX_PROFILE"].Rows[0].ItemArray[12].ToString()); selElement.value = dsData.Tables["P1_SELECT_TAX_PROFILE"].Rows[0].ItemArray[10].ToString();
                                     selElement.value = dtDateTmp.ToString("yyyy");
+                                  
                                   //  selElement.value = dsData.Tables["P1_SELECT_TAX_PROFILE"].Rows[0].ItemArray[18].ToString();
                                     break;
 
@@ -43510,6 +43511,7 @@ namespace IEToolBar
                                 case "ctl00$ContentPlaceHolder1$ddlTempohTutup_thn":
                                     dtDateTmp = Convert.ToDateTime(dsData.Tables["P1_SELECT_TAX_PROFILE"].Rows[0].ItemArray[13].ToString()); selElement.value = dsData.Tables["P1_SELECT_TAX_PROFILE"].Rows[0].ItemArray[10].ToString();
                                     selElement.value = dtDateTmp.ToString("yyyy");
+                                    
                                    // selElement.value = dsData.Tables["P1_SELECT_TAX_PROFILE"].Rows[0].ItemArray[21].ToString();
                                     break;
 
@@ -44864,6 +44866,7 @@ namespace IEToolBar
                                     else
                                         inpElement.value = "";
                                     break;
+
                                 case "ctl00$ContentPlaceHolder1$txtQ1_syer":
                                     if (dsData.Tables["P3_SYER"].Rows.Count > 0)
                                         //NGOHCS 2009
@@ -44873,13 +44876,14 @@ namespace IEToolBar
                                             sh_par_value = double.Parse(dsData.Tables["P3_SYER"].Rows[0]["sh_par_value"].ToString());
                                             bs_capital = double.Parse(dsData.Tables["P3_SYER"].Rows[0]["bs_capital"].ToString());
 
-                                              if (double.Parse(dsData.Tables["P3_SYER"].Rows[0]["bs_capital"].ToString()) > 0)
-                                                {
+                                            if (double.Parse(dsData.Tables["P3_SYER"].Rows[0]["bs_capital"].ToString()) > 0)
+                                            {
                                                 calc = ((sh_share * sh_par_value) / bs_capital) * 100;
-                                                }
-                                            inpElement.value = Math.Round(calc).ToString();
+                                            }
+                                            inpElement.value = Math.Round(calc,4).ToString("0.00");
                                         }
-                                        else{
+                                        else
+                                        {
                                             inpElement.value = Math.Round(double.Parse(dsData.Tables["P3_SYER"].Rows[0]["SH_SHAREP"].ToString()), 4).ToString();
                                         }
                                     else
@@ -44910,7 +44914,7 @@ namespace IEToolBar
                                             {
                                                 calc = ((sh_share * sh_par_value) / bs_capital) * 100;
                                             }
-                                            inpElement.value = Math.Round(calc).ToString();
+                                            inpElement.value = Math.Round(calc,4).ToString("0.00");
                                         }
                                         else
                                         {
@@ -44944,7 +44948,7 @@ namespace IEToolBar
                                             {
                                                 calc = ((sh_share * sh_par_value) / bs_capital) * 100;
                                             }
-                                            inpElement.value = Math.Round(calc).ToString();
+                                            inpElement.value = Math.Round(calc,4).ToString("0.00");
                                         }
                                         else
                                         {
@@ -44978,7 +44982,7 @@ namespace IEToolBar
                                             {
                                                 calc = ((sh_share * sh_par_value) / bs_capital) * 100;
                                             }
-                                            inpElement.value = Math.Round(calc).ToString();
+                                            inpElement.value = Math.Round(calc,4).ToString("0.00");
                                         }
                                         else
                                         {
@@ -45012,7 +45016,7 @@ namespace IEToolBar
                                             {
                                                 calc = ((sh_share * sh_par_value) / bs_capital) * 100;
                                             }
-                                            inpElement.value = Math.Round(calc).ToString();
+                                            inpElement.value = Math.Round(calc,4).ToString("0.00");
                                         }
                                         else
                                         {
@@ -48851,42 +48855,71 @@ namespace IEToolBar
                                 //case "ctl00$ContentPlaceHolder1$txtA6_Cukai":
                                 //    inpElement.value = "1";
                                 //    break;
+
+                                //case "ctl00$ContentPlaceHolder1$txtC2":
+                                //    MessageBox.Show("hai");
+                                //    if (dsData.Tables["P17_TABLE"].Rows.Count > 0)
+                                //    {
+                                //        if (dsData.Tables["P17_TABLE"].Rows[0]["TC_TP_INSTALL_107C"].ToString() == dsData.Tables["P17_TABLE"].Rows[0]["TC_TP_INSTALL_107C"].ToString())
+                                //            inpElement.value = dsData.Tables["P17_TABLE"].Rows[0]["TC_TP_INSTALL_107C"].ToString();
+                                //        else if (dsData.Tables["P17_TABLE"].Rows[0]["IH_TP_INSTALL_107C"].ToString() == dsData.Tables["P17_TABLE"].Rows[0]["IH_TP_INSTALL_107C"].ToString())
+                                //            inpElement.value = dsData.Tables["P17_TABLE"].Rows[0]["IH_TP_INSTALL_107C"].ToString();
+
+                                //        //inpElement.value = dsData.Tables["P17_TABLE"].Rows[0]["IH_TP_INSTALL_107C"].ToString();
+                                //    }
+                                //    else
+                                //    {
+                                //        inpElement.value = "0";
+                                //    }
+
+                                //    FireInpElementEvent(inpElement, "OnBlur");
+                                //    break;
+                                
+                                
+                                
                                 case "ctl00$ContentPlaceHolder1$txtB7_Pecahan":
                                     if (dsData.Tables["P17_TABLE"].Rows.Count > 0)
                                     {
-                                        if ((dsData.Tables["P17_TABLE"].Rows[0]["TC_TP_APP_CHARGEABLE7"].ToString()) == "0")
+                                        if (checkcolumnexist(dsData.Tables["P17_TABLE"], "TC_TP_APP_CHARGEABLE7"))
                                         {
-                                            inpElement.value = "0";
-                                        }
-                                        else
-                                        {
+                                            //normal
+                                            if ((dsData.Tables["P17_TABLE"].Rows[0]["TC_TP_APP_CHARGEABLE7"].ToString()) == "0")
                                             inpElement.value = dsData.Tables["P17_TABLE"].Rows[0]["TC_TP_APP_CHARGEABLE7"].ToString();
-                                            FireInpElementEvent(inpElement, "OnBlur");
                                         }
+                                        else { 
+                                        //invHol
+                                            if ((dsData.Tables["P17_TABLE"].Rows[0]["IH_APP_CHARGE_IN6"].ToString()) == "0")
+                                            inpElement.value = dsData.Tables["P17_TABLE"].Rows[0]["IH_APP_CHARGE_IN6"].ToString();
+                                        }
+                                                                                                                                                                                                                      
                                     }
                                     else
                                     {
                                         inpElement.value = "0";
                                     }
+                                    FireInpElementEvent(inpElement, "OnBlur");
                                     break;
+
                                 case "ctl00$ContentPlaceHolder1$txtB7_Kadar":
                                     if (dsData.Tables["P17_TABLE"].Rows.Count > 0)
                                     {
-                                        if (double.Parse(dsData.Tables["P17_TABLE"].Rows[0]["TC_TP_RATE7"].ToString()) == 0)
+                                        if (checkcolumnexist(dsData.Tables["P17_TABLE"], "TC_TP_RATE7"))
                                         {
-                                            inpElement.value = "";
-                                            FireInpElementEvent(inpElement, "OnBlur");
-                                        }
-                                        else
-                                        {
+                                            if (double.Parse(dsData.Tables["P17_TABLE"].Rows[0]["TC_TP_RATE7"].ToString()) == 0)
                                             inpElement.value = dsData.Tables["P17_TABLE"].Rows[0]["TC_TP_RATE7"].ToString();
-                                            FireInpElementEvent(inpElement, "OnBlur");
+                                        }
+                                     else
+                                        {
+                                            if (double.Parse(dsData.Tables["P17_TABLE"].Rows[0]["IH_RATE6"].ToString()) == 0)
+                                                inpElement.value = dsData.Tables["P17_TABLE"].Rows[0]["IH_RATE6"].ToString();
+                                            
                                         }
                                     }
                                     else
                                     {
                                         inpElement.value = "";
                                     }
+                                    FireInpElementEvent(inpElement, "OnBlur");
                                     break;
                                 //case "ctl00$ContentPlaceHolder1$txtA7_Cukai":
                                 //    inpElement.value = "1";
@@ -48972,28 +49005,55 @@ namespace IEToolBar
                                 //case "ctl00$ContentPlaceHolder1$txtB1":
                                 //    inpElement.value = "1";
                                 //    break;
+
                                 case "ctl00$ContentPlaceHolder1$txtC2":
                                     if (dsData.Tables["P17_TABLE"].Rows.Count > 0)
                                     {
-                                        inpElement.value = dsData.Tables["P17_TABLE"].Rows[0]["TC_TP_INSTALL_107C"].ToString();
+                                        if (checkcolumnexist(dsData.Tables["P17_TABLE"], "TC_TP_INSTALL_107C"))
+                                        { 
+                                         if (dsData.Tables["P17_TABLE"].Rows[0]["TC_TP_INSTALL_107C"].ToString() == dsData.Tables["P17_TABLE"].Rows[0]["TC_TP_INSTALL_107C"].ToString())
+                                            inpElement.value = dsData.Tables["P17_TABLE"].Rows[0]["TC_TP_INSTALL_107C"].ToString();
+                                        }
+                                       
+                                        else 
+                                        {
+                                            if (dsData.Tables["P17_TABLE"].Rows[0]["IH_TP_INSTALL_107C"].ToString() == dsData.Tables["P17_TABLE"].Rows[0]["IH_TP_INSTALL_107C"].ToString())
+                                            inpElement.value = dsData.Tables["P17_TABLE"].Rows[0]["IH_TP_INSTALL_107C"].ToString();                                        
+                                        //inpElement.value = dsData.Tables["P17_TABLE"].Rows[0]["IH_TP_INSTALL_107C"].ToString();
+                                    }
                                     }
                                     else
                                     {
                                         inpElement.value = "0";
                                     }
+                               
                                     FireInpElementEvent(inpElement, "OnBlur");
                                     break;
+
                                 case "ctl00$ContentPlaceHolder1$txtC2B":
                                     if (dsData.Tables["P17_TABLE"].Rows.Count > 0)
                                     {
-                                        inpElement.value = dsData.Tables["P17_TABLE"].Rows[0]["TC_TP_INSTALL_107A"].ToString();
+                                       if (checkcolumnexist(dsData.Tables["P17_TABLE"], "TC_TP_INSTALL_107A"))
+                                        {
+                                            if (dsData.Tables["P17_TABLE"].Rows[0]["TC_TP_INSTALL_107A"].ToString() == dsData.Tables["P17_TABLE"].Rows[0]["TC_TP_INSTALL_107A"].ToString())
+                                             inpElement.value = dsData.Tables["P17_TABLE"].Rows[0]["TC_TP_INSTALL_107A"].ToString();
+                                        }
+                                       
+                                        else 
+                                        {
+                                            if (dsData.Tables["P17_TABLE"].Rows[0]["IH_TP_INSTALL_107A"].ToString() == dsData.Tables["P17_TABLE"].Rows[0]["IH_TP_INSTALL_107A"].ToString())
+                                                inpElement.value = dsData.Tables["P17_TABLE"].Rows[0]["IH_TP_INSTALL_107A"].ToString();                                        
+                                        
+                                    }
                                     }
                                     else
                                     {
                                         inpElement.value = "0";
                                     }
+                               
                                     FireInpElementEvent(inpElement, "OnBlur");
                                     break;
+               
                                 //case "ctl00$ContentPlaceHolder1$txtB3_label":
                                 //    inpElement.value = "1";
                                 //    break;
@@ -50227,7 +50287,7 @@ namespace IEToolBar
             }
             catch (Exception ex)
             {
-               // System.Windows.Forms.MessageBox.Show("CCCC " + ex.ToString() + " = " + IDData + " (" + LogData + ")");
+                //System.Windows.Forms.MessageBox.Show("CCCC " + ex.ToString() + " = " + IDData + " (" + LogData + ")");
             }
         }
 
@@ -50850,6 +50910,18 @@ namespace IEToolBar
                 case "ZW": return "ZIMBABWE";
                 default: return "";
             }
+        }
+
+        private Boolean checkcolumnexist(DataTable  dttable,string columnname)
+        {
+            if (dttable.Columns[columnname] != null)
+            {
+                return true;
+            }
+            else {
+                return false;
+            }
+           
         }
 
         private string[] TextSpliter(string strText, int intSize)

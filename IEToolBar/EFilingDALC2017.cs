@@ -1049,7 +1049,7 @@ namespace IEToolBar
                         else
                         {
                             errorLog = "P17_TABLE";
-                            strQuery = "SELECT IH_APP_CHARGE_IN1, IH_APP_CHARGE_IN2, IH_APP_CHARGE_IN3, IH_APP_CHARGE_IN4, IH_APP_CHARGE_IN4A, IH_APP_CHARGE_IN5, IH_APP_CHARGE_IN6, IH_RATE6, IH_SEC6B_REBATE, IH_ITP_SETOFF_110B, IH_ITP_SETOFF, IH_ITP_SETOFF_OTH, IH_SEC132, IH_SEC133, IH_INSTALLMENTS FROM INVESTMENT_HOLDING WHERE IH_REF_NO=? AND IH_YA=?";
+                            strQuery = "SELECT IH_APP_CHARGE_IN1, IH_APP_CHARGE_IN2, IH_APP_CHARGE_IN3, IH_APP_CHARGE_IN4, IH_APP_CHARGE_IN4A, IH_APP_CHARGE_IN5, IH_APP_CHARGE_IN6, IH_RATE6, IH_SEC6B_REBATE, IH_ITP_SETOFF_110B, IH_ITP_SETOFF, IH_ITP_SETOFF_OTH, IH_SEC132, IH_SEC133, IH_INSTALLMENTS, IH_TP_INSTALL_107C, IH_TP_INSTALL_107A FROM INVESTMENT_HOLDING WHERE IH_REF_NO=? AND IH_YA=?";
                             cmdOdbc = new OdbcCommand(strQuery, connOdbc);
                             cmdOdbc.Parameters.Add(new OdbcParameter("@taxpayer", strTaxPayer.ToString()));
                             cmdOdbc.Parameters.Add(new OdbcParameter("@ya", strYA));
